@@ -1,6 +1,8 @@
+
 exports.signUpGetController = (req,res,next) =>{
-    res.send("i am from sign up")
+    res.render("pages/auth", {signupMode:true,msg:""})
 }
-exports.logoutGetController = (req,res,next) =>{
-    res.send("i am from logout")
+
+exports.loginGetController = (req,res,next) =>{
+    res.render("pages/auth", {signupMode:false,msg:""})
 }

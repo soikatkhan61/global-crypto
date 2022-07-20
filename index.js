@@ -9,6 +9,10 @@ const setRoutes = require("./routes/routes")
 
 const app = express()
 
+//setup view engine
+app.set('view engine' ,'ejs')
+app.set('views','views')
+
 //set the routes from routes directory
 
 setRoutes(app)

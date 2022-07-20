@@ -1,7 +1,7 @@
 exports.homePageGetController = (req,res,next) =>{
-    res.send("i am from home")
+    res.render("pages/home")
 }
 
 exports.aboutPageGetController = (req,res,next) =>{
-    res.send("i am from about")
+    res.render("pages/about")
 }

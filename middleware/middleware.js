@@ -2,6 +2,7 @@ const express = require("express")
 const morgan = require("morgan")
 
 const middleware = [
+    express.static('public'),
     morgan('dev')
 ]
 

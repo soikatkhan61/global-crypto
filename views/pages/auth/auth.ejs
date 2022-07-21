@@ -1,18 +1,6 @@
-<%- include('../partials/header/authHead.ejs') %>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script
-      src="https://kit.fontawesome.com/64d58efce2.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="/login_form.css" />
-    <title>Sign in & Sign up Form</title>
-  </head>
-  <body>
-    <div class="s_container <%= signupMode ? 'sign-up-mode' : '' %>">
+<%- include('../../partials/header/authHead.ejs') %>
+
+    <div class="s_container <%= signup_mode ? 'sign-up-mode' : '' %>">
       <div class="forms-container">
         <div class="signin-signup">
 
@@ -29,7 +17,7 @@
             <div style="width:100%;text-align:right;max-width: 380px">
               <p><a href="#">Forgot Password?</a></p>
             </div>
-            <p class="text-danger"><%= msg %> </p>
+          
             
 
             <input type="submit" value="Login" class="s_btn solid" />
@@ -50,7 +38,7 @@
             </div>
           </form>
 
-          <form id="forms1" action="/auth/register" method="post" class="sign-up-form">
+          <form id="forms1" action="/auth/sign-up" method="post" class="sign-up-form">
             <h2 class="title">Sign up</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
@@ -120,7 +108,7 @@
     </div>
 
     
-    <%- include('../partials/footer.ejs')  %>
+    <%- include('../../partials/footer.ejs')  %>
     <script src="/scripts/auth.js"></script>
 </body>
 </html>

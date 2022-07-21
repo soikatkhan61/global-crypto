@@ -1,0 +1,42 @@
+<% if(flashMessage.success){ %>
+    <div class="alert hide" id="alert">
+        <i class="fas fa-check-circle"></i>
+        <span class="message"><%= flashMessage.success %></span>
+        <div class="close-btn text-light" id="close-btn">
+            <span class="fas fa-times"></span>
+        </div>
+    </div>
+    <% } %>
+    
+    <% if(flashMessage.fail){ %>
+    <div class="alert fail hide" id="alert">
+        <i class="fas fa-times-circle"></i>
+        <span class="message"><%= flashMessage.fail %></span>
+        <div class="close-btn close-btn-failed text-light" id="close-btn">
+            <span class="fas fa-times"></span>
+        </div>
+    </div>
+    <% } %>
+    
+    
+    <script>
+        var alert = document.querySelector('#alert')
+        var close_btn = document.querySelector('#close-btn')
+    
+        // window.addEventListener("load", function () {
+        alert.classList.remove('hide')
+        alert.classList.add('show')
+        alert.classList.add('showAlert')
+    
+        setTimeout(function (e) {
+            alert.classList.add('hide')
+            alert.classList.remove('show')
+        }, 5000)
+        // });
+    
+        close_btn.addEventListener('click', function () {
+            alert.classList.add('hide')
+            alert.classList.remove('show')
+        })
+    
+    </script>

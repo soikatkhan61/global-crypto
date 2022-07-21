@@ -1,5 +1,6 @@
 const authRoute = require("./auth")
 const mvc = require("./mvc")
+const pg = require("./pg")
 
 const routes = [
 
@@ -12,9 +13,13 @@ const routes = [
         handler: mvc
     },
     {
+        path: "/pg",
+        handler: pg
+    },
+    {
         path: "/",
         handler: (req,res)=>{
-            res.send("i am main home page")
+            res.render("pages/home",{flashMessage:""});
         }
     }
 ]

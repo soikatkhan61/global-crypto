@@ -2,24 +2,66 @@
 
     <div class="container-fluid">
         <div class="container py-5">
-            <p class="text-center">We send a verification code to <span class="fw-bold">soikatkhan61@gmail.com</span> <br> please submit the code to verify your account.</p>
+            <p class="text-center">We send a verification code to <span class="fw-bold">soikatkhan61@gmail.com</span>
+                <br> please submit the code to verify your account.</p>
             <section class=" w-100 p-4 d-flex justify-content-center pb-4">
-                <form>
+                    <input id="email" type="text" value="<%= user.email %>">
                     <!-- Name input -->
                     <div class="form-outline mb-4">
-                      <input type="text" id="form4Example1" class="form-control" />
-                      <label class="form-label" for="form4Example1">6 digit code</label>
+                        <input name="verify_id" type="text" id="code" class="form-control" />
+                        <label class="form-label" for="form4Example1">6 digit code</label>
                     </div>
-                  
+
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-success btn-block mb-4">Verify</button>
-                  </form>
+                    <button id="submitBtn" type="submit" class="btn btn-success btn-block mb-4">Verify</button>
+                    <div id="res"></div>
             </section>
-            
+
         </div>
     </div>
 
-    
-    <%- include('../../partials/footer.ejs')  %>
-</body>
-</html>
+
+    <%- include('../../partials/footer.ejs') %>
+        <script>
+
+            window.onload = function () {
+                const submitBtn = document.getElementById('submitBtn')
+                const emailBtn = document.getElementById('email')
+                const verify_id = document.getElementById('code')
+                
+
+                submitBtn.addEventListener('click', function (e) {
+                    let email = emailBtn.value
+                    let code = verify_id.value
+                    let result = document.getElementById('res')
+
+                    reqForVerify(email,code)
+                        .then(res => res.json())
+                        .then(data => {
+                            result.innerText = data.msg
+                        })
+                        .catch(e => {
+                            console.log(e)
+                        })
+                })
+
+
+                function reqForVerify(email, code) {
+                    console.log("i am here")
+                    let headers = new Headers()
+                    headers.append('Accept', 'Application/JSON')
+                    headers.append('Content-Type', 'Application/JSON')
+
+                    let req = new Request(`/auth/verify/${email}/${code}`, {
+                        method: "POST",
+                        headers,
+                        mode: 'cors'
+                    })
+                    console.log(req)
+                    return fetch(req)
+                }
+            }
+        </script>
+        </body>
+
+        </html>

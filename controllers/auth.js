@@ -74,7 +74,7 @@ exports.signUpPostController = async (req, res, next) => {
                     service: 'gmail',
                     auth: {
                         type: 'OAuth2',
-                        user: 'dev.soikathossain@gmail.com',
+                        user: 'dev.soikathossain@gmail.com', 
                         clientId: CLIENT_ID,
                         clientSecret: CLIENT_SECRET,
                         refreshToken: REFRESH_TOKEN,
@@ -123,5 +123,141 @@ exports.signUpPostController = async (req, res, next) => {
 
 
 exports.loginGetController = (req, res, next) => {
-    res.render("pages/auth", { signupMode: false, msg: "" })
+    res.render('pages/auth/auth',{
+        title:'Create a new account',
+        error:{}, 
+        value:{},
+        signup_mode:false,
+        flashMessage : Flash.getMessage(req)
+    } )
+}
+
+
+exports.loginPostController = async (req,res,next) =>{
+    let {email,password} = req.body
+    
+    let errors = validationResult(req).formatWith(errorFormatter)
+
+    
+    if(!errors.isEmpty()){
+        req.flash('fail','Please check your form')
+        return  res.render('pages/auth/auth',
+        {
+            title:'Login here!',
+            error:errors.mapped(),
+            signup_mode:false,
+            value:{
+                email
+            },
+            flashMessage : Flash.getMessage(req)
+
+         })
+    }
+
+    try{
+        let user = await User.findOne({email})
+        if(!user){
+
+            req.flash('fail','Wrong Credential')
+            return  res.render('pages/auth/auth',
+            {
+                title:'Login here!',
+                error:errors.mapped(),
+                signup_mode:false,
+                value:{
+                    email
+                },
+                flashMessage : Flash.getMessage(req)
+    
+             })
+        }
+
+        let password_match = await bcrypt.compare(password, user.password)
+        if(!password_match){
+
+            req.flash('fail','Wrong Credential')
+            return  res.render('pages/auth/auth',
+            {
+                title:'Login here!',
+                error:errors.mapped(),
+                signup_mode:false,
+                value:{
+                    email
+                },
+                flashMessage : Flash.getMessage(req)
+    
+             })
+        }
+
+        console.log(user)
+        if(!user.isVerified){
+            return  res.render('pages/auth/verify',
+            {
+                flashMessage : Flash.getMessage(req),
+                user
+            }
+            )
+        }
+        // const token = jwt.sign({
+        //     username: user.username,
+        //     userId: user._id
+        // },config.get('secret'),{expiresIn: '30d'})
+
+        req.session.isLoggedIn = true
+       // req.session.token = token
+        req.session.user = user
+
+        req.session.save(err=>{
+            if(err){
+                console.log(err)
+                return next(err)
+            }
+            req.flash('success','Successfully Logged In')
+            res.redirect('/')
+        })
+       
+    }
+    catch(e){
+        next(e)
+    }
+}
+
+
+exports.verifyController = async(req,res,next) =>{
+   
+    let userEmail = req.params.email
+    let verify_id = req.params.code
+    console.log(userEmail)
+    console.log(verify_id)
+
+    if(verify_id < 1){
+        return false
+    }
+    
+    try{
+        console.log('ami ekhane')
+        let user = await User.findOneAndUpdate({email:userEmail,verification_id:verify_id},{isVerified:true,verification_id:-1})
+        if(!user){
+           return res.sendStatus(404)
+        }
+        return res.status(200).json({
+           msg: "Verification successfull"
+        })
+    }catch(e){
+        next(e)
+    }
+}
+
+
+
+exports.logoutController = (req,res,next) =>{
+   
+    req.session.destroy(err =>{
+        if(err){
+            return next(err)
+        }
+        return res.redirect('/auth/login')
+    })
+
+   
 }

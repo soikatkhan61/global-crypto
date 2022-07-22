@@ -231,18 +231,16 @@ exports.verifyController = async(req,res,next) =>{
     console.log(verify_id)
 
     if(verify_id < 1){
-        return false
+        return res.sendStatus(500)
     }
     
     try{
         console.log('ami ekhane')
         let user = await User.findOneAndUpdate({email:userEmail,verification_id:verify_id},{isVerified:true,verification_id:-1})
         if(!user){
-           return res.sendStatus(404)
+           return res.sendStatus(500)
         }
-        return res.status(200).json({
-           msg: "Verification successfull"
-        })
+        return res.sendStatus(200)
     }catch(e){
         next(e)
     }

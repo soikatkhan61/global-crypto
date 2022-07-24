@@ -31,7 +31,7 @@ exports.isAuthenticated = (req,res,next) =>{
 
 exports.isUnAuthenticated = (req,res,next) => {
     if(req.session.isLoggedIn){
-        return res.redirect('/dashboard')
+        return res.redirect('/')
     }
 
     next()

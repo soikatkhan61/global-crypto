@@ -1,3 +1,49 @@
-h2{
-    font-size: 40px;
+
+header{
+    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(/images/background.jpg);
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
 }
+.Soon{
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-align: center;
+    font-family: 'Fira Sans', sans-serif;
+}
+.Soon h1{
+    font-size: 65px;
+    letter-spacing: 15px;
+}
+.Soon hr{
+    width: 50%;
+    margin: 30px auto;
+    border: 1.5px solid #fff;
+}
+.Soon p{
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+#launch{
+    font-size: 40px;
+    word-spacing: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

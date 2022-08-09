@@ -1,0 +1,75 @@
+<%- include('../partials/header/head.ejs')  %>
+
+    <div class="container-fluid" style="background-color: #eee!important; min-height: 100vh;">
+        <div class="container py-5">
+            <h3 class="text-primary text-center bg-white border py-3">Complete the task and earn <span class="text-danger">money !!</span></h3>
+
+            <div class="card">
+               <% if(!task){ %> 
+
+                    <div class="card-body">
+                        <h4 class="text-center">You need to apply for getting task. Click the button below.</h4>
+                        <hr>
+                        <center><a href="/task/create-task" class="btn btn-success">Apply for task</a></center>
+                    </div>
+                  
+               <% }else{ %> 
+                <div class="card-body">
+                    <div class="gif text-center">
+                        <img src="/images/giftbox.gif" alt="" style="max-height: 250px;" class="img-fluid">
+                    </div>
+                    <p class="text-center">Grab this giftbox and complete the following task.</p>
+
+                    <div class="d-flex justify-content-center">
+                        <a href="/package" class="btn mx-1" style="background-color:#9FA6B2; color:black;">Upgrade package</a>
+                        <% if(task.remain_task <= 0){ %> 
+                            <button class="btn btn-success mx-1">Task Finished</button>
+                        <% }else{ %> 
+                            <a href="/task/complete" class="btn btn-warning mx-1">Grab giftbox</a>
+                        <% } %> 
+                    </div>
+
+                    <div class="mt-4 text-center">
+                        <h4 class="text-danger fw-bold">Remaing Task: <%= task.remain_task %>  </h4>
+                    </div>
+
+                    <div class="mt-4">
+                        <hr>
+                        <h4 class="text-center">Your Dashboard (today)</h4>
+                        <hr>
+
+                        <div>
+                            
+                           <h2 class="text-center text-success">Balance: <span class="fw-bold">2399</span> tk</h2>
+
+                           <div class="d-md-flex py-3 text-light">
+                            <div class="card my-2 px-3 py-2 bg-success mx-1" style="width: 100%;">
+                                <div class="card-header text-center"> Todays Earning</div>
+                                <div class="card-body">
+                                    <h4 class="text-center">846 TK</h4>
+                                </div>
+                            </div>
+                            <div class="card my-2 px-3 py-2 bg-info mx-1" style="width: 100%;">
+                                <div class="card-header text-center"> Todays Earning</div>
+                                <div class="card-body">
+                                    <h4 class="text-center">846 TK</h4>
+                                </div>
+                            </div>
+                            <div class="card my-2 px-3 py-2 bg-secondary mx-1" style="width: 100%;">
+                                <div class="card-header text-center"> Todays Commissions</div>
+                                <div class="card-body">
+                                    <h4 class="text-center">846 TK</h4>
+                                </div>
+                            </div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+               <% } %> 
+            </div>
+        </div>
+    </div>
+
+<%- include('../partials/footer.ejs')  %>
+</body>
+</html>

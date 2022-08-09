@@ -1,3 +1,5 @@
-exports.pg = (req,res,next) =>{
-    res.render("pages/auth/verify",{flashMessage:""})
+const User = require("../models/User")
+
+exports.pg =async (req,res,next) =>{
+    res.render("pages/invoice",{flashMessage:"",order:""})
 }

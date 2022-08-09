@@ -36,3 +36,21 @@ exports.isUnAuthenticated = (req,res,next) => {
 
     next()
 }
+
+exports.checkAdmin = async(req,res,next) => {
+    
+    if(req.user != undefined){
+        try{
+            let user = await User.findById(req.session.user._id)
+            if(user.userType == "admin"){
+                return next()
+            }else{
+                res.send("you are not admin")
+            }
+            
+        }catch(e){
+            console.log(e)
+            next(e)
+        }
+    }
+}

@@ -1,0 +1,11 @@
+<%- include('../partials/header/head.ejs')  %>
+
+    <% if(isLoggedIn){ %> 
+        <h1 class="text-success text-center py-5">Yor logged in User</h1>
+    <% }else{ %> 
+        <h1>Please in login to access this!</h1>
+    <% } %> 
+
+<%- include('../partials/footer.ejs')  %>
+</body>
+</html>

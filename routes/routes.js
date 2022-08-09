@@ -1,5 +1,8 @@
 const authRoute = require("./authRoute")
-const mvc = require("./mvc")
+const userRoute = require("./userRoute")
+const adminRoute = require("./adminRoute")
+const taskRoute = require("./taskRoute")
+const packageRoute = require("./packageRoute")
 const pg = require("./pg")
 
 const routes = [
@@ -9,8 +12,20 @@ const routes = [
         handler: authRoute
     },
     {
-        path: "/mvc",
-        handler: mvc
+        path: "/admin",
+        handler: adminRoute
+    },
+    {
+        path: "/user",
+        handler: userRoute
+    },
+    {
+        path: "/task",
+        handler: taskRoute
+    },
+    {
+        path: "/package",
+        handler: packageRoute
     },
     {
         path: "/pg",
@@ -19,7 +34,7 @@ const routes = [
     {
         path: "/",
         handler: (req,res)=>{
-            res.render("pages/home",{flashMessage:""});
+            res.render("pages/index",{flashMessage:""});
         }
     }
 ]

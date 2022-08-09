@@ -1,0 +1,107 @@
+
+<!-- SIDEBAR -->
+<div class="sidebar" style="background-color: #3c4b64;color: white;">
+    <div class="sidebar-logo">
+      <h2>Treaders BD</h2>
+        <div class="sidebar-close" id="sidebar-close">
+            <i class='bx bx-left-arrow-alt'></i>
+        </div>
+    </div>
+    <div class="sidebar-user">
+        <div class="sidebar-user-info">
+            <img src="/images/user-image.jpg" alt="User picture" class="profile-image">
+            <div class="sidebar-user-name">
+                <%= userProfile.username %> 
+            </div>
+        </div>
+        <a  href="/" class="btn_user btn_user-outline" style="border: 2px solid white;">
+            <i class='bx bx-log-out bx-flip-horizontal' style="color: white;"></i>
+        </a>
+    </div>
+    <!-- SIDEBAR MENU -->
+    <ul class="sidebar-menu">
+        <style>
+            .sidebar-menu li a:hover{
+                color:yellow
+            }
+        </style>
+        <li>
+            <a href="/user/dashboard">
+                <i class='bx bx-home'></i>
+                <span>dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-trending-up'></i>
+                <span>Analystic</span>
+            </a>
+        </li>
+        <li class="sidebar-submenu">
+            <a href="#" class="sidebar-menu-dropdown">
+                <i class='bx bxs-package'></i>
+                <span>package</span>
+                <div class="dropdown-icon"></div>
+            </a>
+            <ul class="sidebar-menu sidebar-menu-dropdown-content">
+                <li>
+                    <a href="/admin/packages">
+                        our packages
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        edit profile
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="/user/get-refered" >
+                <i class='bx bx-link'></i>
+                <span>Get referred</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" data-mdb-toggle="modal" data-mdb-target="#referLink">
+                <i class='bx bx-link'></i>
+                <span>my refer link</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-pin'></i>
+                <span>change password</span>
+            </a>
+        </li>
+      
+        <li class="sidebar-submenu">
+            <a href="#" class="sidebar-menu-dropdown">
+                <i class='bx bx-cog'></i>
+                <span>settings</span>
+                <div class="dropdown-icon"></div>
+            </a>
+            <ul class="sidebar-menu sidebar-menu-dropdown-content">
+                <li>
+                    <a href="#" class="darkmode-toggle" id="darkmode-toggle">
+                        darkmode
+                        <span class="darkmode-switch"></span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <!-- END SIDEBAR MENU -->
+</div>
+<!-- END SIDEBAR -->
+
+    <!-- MAIN CONTENT -->
+    <div class="main">
+        <div class="main-header  bg-success text-light">
+            <div class="mobile-toggle" id="mobile-toggle">
+                <i class='bx bx-menu-alt-right'></i>
+            </div>
+            <div class="main-title">
+                Admin Panel
+            </div>
+        </div>

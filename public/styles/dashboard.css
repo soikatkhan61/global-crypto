@@ -24,11 +24,16 @@
     --text-color: #b9b9b9;
 }
 
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
     background-color: var(--body-bg);
-    color: var(--text-color);
     position: relative;
 }
 

@@ -1,0 +1,36 @@
+<%- include('../../partials/header.ejs')  %>
+<div class="container-fluid py-3">      
+    <div class="container table-responsive">
+        <h3 class="text-center text-primary">Analystic Package</h3>
+        <hr>
+
+        <table class="table">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">Package Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Comission</th>
+                <th scope="col">Total Subscriber</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% for(let p of pkg){ %> 
+                    <tr>
+                        <td><%= p.package_name%></td>
+                        <td><%= p.price%> TK</td>
+                        <td><%= p.package_comission%> %</td>
+                        <td><%= p.total_subscriber%> </td>
+                        <td><%= p.createdAt.toDateString() %></td>
+                        <td><a href="/admin/packages/edit-package?package=<%= p.package_name %>" class="btn btn-sm btn-warning" >edit</a></td>
+                      </tr> 
+                <% } %>  
+             
+            </tbody>
+          </table>
+    </div>
+</div>
+<%- include('../../partials/footer.ejs')  %>
+</body>
+</html>

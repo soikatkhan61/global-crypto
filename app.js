@@ -48,6 +48,9 @@ app.use((error,req,res,next) =>{
     res.render("pages/error/500",{title: "Internel server errors found",flashMessage:"" })
 })
 
+
+
+
 //create server
 const PORT = process.env.PORT || 3000
 mongoose.connect(MONGODB_URI,{useNewUrlParser:true,useUnifiedTopology: true})

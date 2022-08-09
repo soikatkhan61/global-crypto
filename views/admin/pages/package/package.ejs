@@ -41,14 +41,14 @@
                 <h2>Silver</h2>
               </div>
               <div class="ptable-price">
-                <h2>1500<span> TK</span></h2>
+                <h2><%= pkg[0].price %><span>TK</span></h2>
               </div>
             </div>
             <div class="ptable-body">
               <div class="ptable-description">
                 <ul>
                   <li>Silver</li>
-                  <li>Commision 2% </li>
+                  <li>Commision <%= pkg[0].package_comission %> %</li>
                   <li>Customer Support</li>
                   <li>Entry Level Package</li>
                 </ul>
@@ -56,7 +56,7 @@
             </div>
             <div class="ptable-footer">
               <div class="ptable-action">
-                <a href="/package/buy?package=silver">Edit This</a>
+                <a href="/admin/packages/edit-package?package=silver">Edit This</a>
               </div>
             </div>
           </div>
@@ -72,14 +72,14 @@
                 <h2>Gold</h2>
               </div>
               <div class="ptable-price">
-                <h2>6000<span> TK</span></h2>
+                <h2><%= pkg[1].price %><span>TK</span></h2>
               </div>
             </div>
             <div class="ptable-body">
               <div class="ptable-description">
                 <ul>
                   <li>Gold</li>
-                  <li>Commision 2.50% </li>
+                  <li>Commision <%= pkg[1].package_comission %> %</li>
                   <li>Customer Support</li>
                   <li>Most Selling Package</li>
                 </ul>
@@ -87,7 +87,7 @@
             </div>
             <div class="ptable-footer">
               <div class="ptable-action">
-                <a href="/package/buy?package=gold">Edit This</a>
+                <a href="/admin/packages/edit-package?package=gold">Edit This</a>
               </div>
             </div>
           </div>
@@ -100,14 +100,14 @@
                 <h2>Platinum</h2>
               </div>
               <div class="ptable-price">
-                <h2>30000<span> TK</span></h2>
+                <h2><%= pkg[2].price %><span>TK</span></h2>
               </div>
             </div>
             <div class="ptable-body">
               <div class="ptable-description">
                 <ul>
                   <li>Platinium</li>
-                  <li>Commision 3% </li>
+                   <li>Commision <%= pkg[2].package_comission %> %</li>
                   <li>Customer Support</li>
                   <li>Master Package</li>
                 </ul>
@@ -115,7 +115,7 @@
             </div>
             <div class="ptable-footer">
               <div class="ptable-action">
-                <a href="/package/buy?package=platinium">Edit This</a>
+                <a href="/admin/packages/edit-package?package=platinum">Edit This</a>
               </div>
             </div>
           </div>

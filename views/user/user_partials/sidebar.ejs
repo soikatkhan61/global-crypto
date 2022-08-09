@@ -9,9 +9,9 @@
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" name="" id="refer_id_in_modal" value="<%= userProfile._id %>" hidden>
+                    <input type="text" name="" id="refer_id_in_modal" value="<%= user._id %>" hidden>
                     <p class="text-primary">
-                        <%= userProfile.isReffered ? userProfile._id : "You did not referred yet!" %>
+                        <%= user.isReffered ? user._id : "You did not referred yet!" %>
                     </p>
                 </div>
                 <div class="modal-footer">
@@ -28,7 +28,7 @@
                             copyBtn.innerText = "coppied"
                         }
                     </script>
-                    <% if(userProfile.isReffered){ %> 
+                    <% if(user.isReffered){ %> 
                         <button type="button" id="copyBtn" class="btn btn-primary" onclick="myFunction()">copy <i
                             class='bx bx-copy'></i></button>
                     <% }else{ %>
@@ -53,7 +53,7 @@
         <div class="sidebar-user-info">
             <img src="/images/user-image.jpg" alt="User picture" class="profile-image">
             <div class="sidebar-user-name">
-                <%= userProfile.username %> 
+                <%= user.username %> 
             </div>
         </div>
         <a  href="/" class="btn_user btn_user-outline">

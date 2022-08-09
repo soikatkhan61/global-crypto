@@ -3,20 +3,24 @@
 const {Schema , model} = require('mongoose')
 
 const packageSchema = new Schema({
-    user :{
-        type:Schema.Types.ObjectId,
-        ref: 'User',
-        required:true
-    },
     package_name:{
         type:String,
         enum:["silver","gold","platinum"],
+        required:true,
+        trim:true
+    },
+    price:{
+        type:Number,
         required:true
     },
     package_comission:{
         type:Number,
         default:0,
         required:true
+    },
+    total_subscriber:{
+        type:Number,
+        default:0
     }
 },{
     timestamps:true

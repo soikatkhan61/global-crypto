@@ -24,7 +24,7 @@ const routes = [
         handler: taskRoute
     },
     {
-        path: "/package",
+        path: "/packages",
         handler: packageRoute
     },
     {

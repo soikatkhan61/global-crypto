@@ -42,7 +42,7 @@
 
 
 <!-- SIDEBAR -->
-<div class="sidebar">
+<div class="sidebar" style="background:#111;color:#FFF">
     <div class="sidebar-logo">
       <h2>Treaders BD</h2>
         <div class="sidebar-close" id="sidebar-close">
@@ -56,12 +56,17 @@
                 <%= user.username %> 
             </div>
         </div>
-        <a  href="/" class="btn_user btn_user-outline">
-            <i class='bx bx-log-out bx-flip-horizontal'></i>
+        <a  href="/" class="btn_user btn_user-outline" style="border: 2px solid white;">
+            <i class='bx bx-log-out bx-flip-horizontal' style="color: white;"></i>
         </a>
     </div>
     <!-- SIDEBAR MENU -->
     <ul class="sidebar-menu">
+        <style>
+            .sidebar-menu li a:hover{
+                color:yellow
+            }
+        </style>
         <li>
             <a href="/user/dashboard" class="active">
                 <i class='bx bx-home'></i>
@@ -69,9 +74,9 @@
             </a>
         </li>
         <li>
-            <a href="#">
-                <i class='bx bx-trending-up'></i>
-                <span>Analystic</span>
+            <a href="/user/my_package">
+                <i class='bx bx-package'></i>
+                <span>My package</span>
             </a>
         </li>
         <li class="sidebar-submenu">

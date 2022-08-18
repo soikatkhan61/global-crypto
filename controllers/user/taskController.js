@@ -1,40 +1,67 @@
 const User = require("../../models/User");
 const Task = require("../../models/Task");
 const moment = require("moment");
+const db = require("../../config/db.config");
 
 exports.taskGetController = async (req, res, next) => {
   try {
-    let task = await Task.findOne({ user: req.user._id }).populate("user");
-    if (task) {
-      let hours = moment().diff(moment(task.time), "hours");
-      console.log(hours);
-      if (hours >= 24) {
-        await Task.findOneAndUpdate(
-          { user: req.user._id },
-          { $set: { remain_task: 10 } }
-        );
+    db.query(
+      `SELECT users.*,users.id as userId, task.*
+    FROM users 
+    JOIN task 
+    ON task.user_id =users.id where task.id=?`,
+      [req.user.id],
+      (e, data) => {
+        if (e) {
+          return next(e);
+        } else {
+          if (data) {
+            let hours = moment().diff(moment(data.updatedAt), "hours");
+            console.log(hours);
+            if (hours >= 24) {
+              db.query(
+                "updata task set remain_task = 10 where user_id=?",
+                [req.user.id],
+                (e, data) => {
+                  if (e) {
+                    return next(e);
+                  }
+                }
+              );
+            }
+            res.render("pages/task", { flashMessage: "", task:data });
+          }
+        }
       }
-    }
-
-    console.log(task);
-    res.render("pages/task", { flashMessage: "", task });
+    );
   } catch (e) {
     next(e);
   }
 };
 
 exports.createTaskController = async (req, res, next) => {
+  console.log("i am here")
   try {
-    let task = await Task.findOne({ user: req.user._id }).populate("user");
-    if (!task) {
-      let newTask = new Task({
-        user: req.user._id,
-      });
-      let task = await newTask.save();
-    }
-    console.log(task);
-    res.render("pages/task", { flashMessage: "", task });
-    
+    db.query("select * from task where user_id = ?",[req.user.id],(e,data)=>{
+      if(e){
+        return next(e)
+      }else{
+        if(data.length==0){
+          db.query("insert into task values(?,?,?,?,?,?,?);",[null,req.user.id,2,10,0,null,null],(e,data)=>{
+            if(e){
+              return next(e)
+            }else{
+              console.log("data created")
+              if(data.insertId){
+                return res.redirect('/task')
+              }
+            }
+          })
+        }else{
+          return res.redirect("/task")
+        }
+      }
+    })
   } catch (e) {
     next(e);
   }
@@ -42,24 +69,24 @@ exports.createTaskController = async (req, res, next) => {
 
 exports.taskPostController = async (req, res, next) => {
   try {
-    let checkTaskExists = await Task.findOne({ user: req.user._id });
-
-    if (checkTaskExists) {
-      console.log("task ache, update kortechi dont worry");
-      await Task.findOneAndUpdate(
-        { user: req.user._id },
-        { $inc: { remain_task: -1 } }
-      );
-    } else {
-      console.log("hi task nei, create korte ashci ami");
-      let newTask = new Task({
-        user: req.user._id,
-      });
-      let task = await newTask.save();
-      console.log(task);
-    }
-
-    res.redirect("/task");
+    db.query("select * from task where user_id = ?",[req.user.id],(e,data)=>{
+      if(e){
+        return next(e)
+      }else{
+        if(data.length > 0 && data[0].remain_task >= 0){
+          db.query("update task set remain_task = remain_task -1,updatedAt=? where user_id = ?",[new Date,req.user.id],(e,data)=>{
+            if(e){
+              return next(e)
+            }else{
+              return res.redirect("/task");
+            }
+          })
+        }else{
+          return res.redirect("/task");
+        }
+      }
+    })
+    
   } catch (error) {
     next(error);
   }

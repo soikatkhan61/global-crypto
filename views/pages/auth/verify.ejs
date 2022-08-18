@@ -10,12 +10,12 @@
             <h4 id="res" class="text-center text-success py-1 px-3"></h4>
             <p class="text-center" id="dashboard_link" style="display: none">Go to <a href="/">Dashboard</a></p>
             <div  class=" w-100 p-4 d-flex justify-content-center pb-4">
-                <form id="verify_box" >
-                    <input id="email" type="text" value="<%= user.email %>" hidden>
+                <form action="/auth/verify" method="post"  id="verify_box" >
+                    <input id="email" name="email" type="text" value="<%= user.email %>" hidden>
                     <!-- Name input -->
                     <div class="form-outline mb-4">
                         <input name="verify_id" type="text" id="code" class="form-control" />
-                        <label class="form-label" for="form4Example1">6 digit code</label>
+                        <label class="form-label" for="form4Example1">8 digit code</label>
                     </div>
 
                     <!-- Submit button -->
@@ -29,61 +29,7 @@
 
 
     <%- include('../../partials/footer.ejs') %>
-        <script>
 
-            window.onload = function () {
-                const submitBtn = document.getElementById('submitBtn')
-                const emailBtn = document.getElementById('email')
-                const verify_id = document.getElementById('code')
-
-
-
-                submitBtn.addEventListener('click', function (e) {
-                    e.preventDefault()
-                    submitBtn.innerText = "Verifying..."
-                    let email = emailBtn.value
-                    let code = verify_id.value
-                    let result = document.getElementById('res')
-                    let verify_box = document.getElementById('verify_box')
-                    let dashboard_link = document.getElementById('dashboard_link')
-
-                    reqForVerify(email, code)
-                        .then((res) => {
-                            console.log(res.status)
-                            if (res.status == 200 && res.status != "undefined") {
-                                result.innerText = "Verification Successflly Complete"
-                                result.classList.remove("text-danger")
-                                dashboard_link.style.display = "block"
-                                verify_box.style.display = "none"
-                            }
-                            else{
-                                result.classList.add("text-danger")
-                                result.innerText = "Verification Failed!"
-                                submitBtn.innerText = "Verify Again"
-                            }
-                           
-                        }
-                        )
-                        .catch(e => {
-                            console.log(e)
-                        })
-                })
-
-
-                function reqForVerify(email, code) {
-                    let headers = new Headers()
-                    headers.append('Accept', 'Application/JSON')
-                    headers.append('Content-Type', 'Application/JSON')
-
-                    let req = new Request(`/auth/verify/${email}/${code}`, {
-                        method: "POST",
-                        headers,
-                        mode: 'cors'
-                    })
-                    return fetch(req)
-                }
-            }
-        </script>
         </body>
 
         </html>

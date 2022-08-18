@@ -3,7 +3,6 @@
     <div>
         <h3 class="text-center text-primary">Edit Package</h3>
         <hr>
-
             <div class="add-product-form d-md-flex justify-content-center p-2"> 
                 <form action="/admin/packages/edit-package" method="post" class="py-2">
                     <div class="mb-2">
@@ -18,21 +17,21 @@
                           <option class="py-2 px-5" value=" none">Package Name</option>
 
                           <% for(let p of pkgs){ %>
-                            <option class="py-2 px-5" <%= p.package_name === pkg.package_name ? "selected" : "" %>  value="<%= p.package_name %>" ><%= p.package_name %></option>
+                            <option class="py-2 px-5" <%= p.package_name === pkg[0].package_name ? "selected" : "disabled" %>  value="<%= p.package_name %>" ><%= p.package_name %></option>
                           <% } %> 
                         </select>
-                        <input id="result" name="package_name"  value="<%= pkg.package_name ? pkg.package_name : '' %>"  class="d-none">
+                        <input id="result" name="package_name"  value="<%= pkg[0].package_name ? pkg.package_name : '' %>"  class="d-none">
                       
                         </div>
                   
                     <!-- quantity input -->
                     <div class="form-outline mb-3">
-                      <input type="number" name="price" value="<%= pkg.price %>" id="total_dollar" class="form-control" />
+                      <input type="number" name="price" value="<%= pkg[0].price %>" id="total_dollar" class="form-control" />
                       <label class="form-label" for="total_dollar">Package Price</label>
                     </div>
 
                     <div class="form-outline mb-3">
-                      <input type="number" name="package_comission" value="<%= pkg.package_comission %>" id="total_dollar" class="form-control" />
+                      <input type="number" name="package_comission" value="<%= pkg[0].package_comission %>" id="total_dollar" class="form-control" />
                       <label class="form-label" for="total_dollar">Package Commision</label>
                     </div>
             

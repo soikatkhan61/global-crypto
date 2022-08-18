@@ -1,11 +1,12 @@
 const cheerio = require('cheerio')
 const moment = require('moment')
+const jwt = require("jsonwebtoken")
+const db = require("../config/db.config")
 
 module.exports = () =>{
     return(req,res,next)=>{
         res.locals.user = req.user
         res.locals.isLoggedIn = req.session.isLoggedIn
-
         res.locals.truncate = html =>{
             let node = cheerio.load(html)
             let text = node.text()

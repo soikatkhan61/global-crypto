@@ -18,13 +18,6 @@ if (true) {
 }
 
 
-
-const store = new MongoDBStore({
-    uri: MONGODB_URI,
-    collection: 'sessions',
-    expires: 1000 * 60 * 60 * 24
-});
-
 const middleware = [
     express.static('public'),
     morgan('dev'),
@@ -33,8 +26,7 @@ const middleware = [
     session({
         secret: "This is secret message",
         resave: false,
-        saveUninitialized: false,
-        store: store
+        saveUninitialized: false
     }),
     flash(),
     bindUserWithRequest(),

@@ -8,11 +8,11 @@ const {
 const {packageGetController,packageBuyPostController} = require('../controllers/user/packageController')
 
 
-router.get("/",packageGetController)
+
 
 router.get("/buy",isAuthenticated,packageBuyPostController)
 
-
+router.get("/",packageGetController)
 
 
 

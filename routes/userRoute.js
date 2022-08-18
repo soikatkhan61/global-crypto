@@ -7,10 +7,14 @@ const {
 } = require('../middleware/authMiddleware')
 
 const {getReferGetController,getReferPostController,dashboardGetController} = require('../controllers/user/mlm')
+const {renderMyPackage,renderPkgPayment,pkgPaymentPostContrller} = require("../controllers/user/packageController")
 
 router.get("/get-refered",isAuthenticated,getReferGetController)
 router.post("/get-refered",isAuthenticated,getReferPostController)
 
+router.get("/my_package",isAuthenticated,renderMyPackage)
+router.get("/pay/:pkg_id",isAuthenticated,renderPkgPayment)
+router.post("/pay",isAuthenticated,pkgPaymentPostContrller)
 
 router.get("/dashboard",isAuthenticated,dashboardGetController)
 

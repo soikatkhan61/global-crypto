@@ -7,17 +7,17 @@ const {
 } = require('../middleware/authMiddleware')
 
 const {adminDashboardGetController,packageAnalysticGetController} = require('../controllers/admin/adminController')
-const {adminPackageGetController,packageEditGetController,packageEditPostController} = require("../controllers/admin/adminPackageController")
+const {adminPackageGetController,packageEditGetController,packageEditPostController,pkgApproveGet} = require("../controllers/admin/adminPackageController")
 
 
 router.get("/packages",isAuthenticated,checkAdmin,adminPackageGetController)
 router.get("/packages/analystic",isAuthenticated,checkAdmin,packageAnalysticGetController)
 
-router.get("/",isAuthenticated,checkAdmin,adminDashboardGetController)
-
 router.get("/packages/edit-package",isAuthenticated,checkAdmin,packageEditGetController)
 router.post("/packages/edit-package",isAuthenticated,checkAdmin,packageEditPostController)
 
+router.get("/packages/approve",isAuthenticated,checkAdmin,pkgApproveGet)
 
+router.get("/",isAuthenticated,checkAdmin,adminDashboardGetController)
 
 module.exports = router

@@ -1,7 +1,8 @@
+require('dotenv').config()
 const express = require("express")
 const mongoose = require("mongoose")
 const path = require("path")
-
+require('./config/db.config')
 
 //import code
 const {homePageGetController} = require("./controllers/myController")
@@ -53,14 +54,7 @@ app.use((error,req,res,next) =>{
 
 //create server
 const PORT = process.env.PORT || 3000
-mongoose.connect(MONGODB_URI,{useNewUrlParser:true,useUnifiedTopology: true})
-.then(()=>{
-    console.log("DATABASE CONNECTED")
-    app.listen(PORT,()=>{
-        console.log("SERVER IS RUNINNG ON PORT "+PORT)
-    })
-})
-.catch(e =>{
-    return console.log(e)
+app.listen(PORT,()=>{
+    console.log("SERVER IS RUNINNG ON PORT "+PORT)
 })
 

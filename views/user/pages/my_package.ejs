@@ -1,0 +1,44 @@
+<%- include('../user_partials/header.ejs') %> 
+
+<div class="container-fluid py-2" style="min-height: 100vh;background: #eee;">
+    <div class="container mt-4">
+        <% if(pkg.length ==0){ %> 
+            <div class="card p-4">
+                <h4 class="text-center mb-5">You did not buy any package yet!</h4>
+                <a class="btn btn-primary" href="/packages">Buy Package</a>
+            </div>
+        <% }else{%>
+            <div class="p-4" style="background-color: #fff;">
+                <h4 class="text-center text-success fw-bold">Congratulations <%= user.username %>  !!</h4>
+                <h5 class="text-center">You are registered for : <span class="fw-bold text-primary"><%= pkg[0].package_name %></span></span></h5>
+                <hr>
+                <div>
+                    <p>Registered: <span class="fw-bold fst-italic"><%= pkg[0].createdAt.toDateString() %> </span></p>
+                    <p>Package: <span class="fw-bold fst-italic"><%= pkg[0].package_name %></span></p>
+                    <p>Comission Rate: <span class="fw-bold fst-italic"><%= pkg[0].price %> TK</span></p>
+                    <p>Comission Rate: <span class="fw-bold fst-italic"><%= pkg[0].package_comission %>%</span></p>
+                    <p>Payment Status:  <span class="badge badge-<%= pkg[0].approval_status === 1 ? "success" : "warning" %> rounded-pill d-inline"><%= pkg[0].approval_status === 1 ? "paid" : "payment pending" %> </span></p>
+
+                    <% if(pkg_payment.length){ %> 
+                        <hr>
+                        <h5 class="text-success py-2">Payment Information</h5>
+                        <p>Payment Method: <span class="text-dark fst-italic"><%= pkg_payment[0].payment_method %> </span></p>
+                        <p>Payment Number: <span class="text-dark fst-italic"><%= pkg_payment[0].payment_number %> </span></p>
+                        <p>Transaction ID: <span class="text-dark fst-italic"><%= pkg_payment[0].transaction_number %> </span> </p>
+                        <p>Payment Approval Status:  <span class="badge badge-<%= pkg[0].approval_status === 1 ? "success" : "warning" %> rounded-pill d-inline"><%= pkg[0].approval_status === 1 ? "Approved" : "Not approved yet !" %> </span></p>
+                        <hr>
+                    <% }%> 
+                </div>
+               <div class="py-2">    
+                <% if(pkg[0].approval_status === 0){ %>
+                    <center><a href="/user/pay/<%= pkg[0].pkg_sub_id %> " class="btn btn-danger btn-sm">Pay Now</a></center>
+                <% }else{ %>
+                    <center><button class="btn btn-warning btn-sm">upgrade package</button></center> 
+                <% } %> 
+               </div>
+               
+            </div> 
+        <% } %> 
+    </div>
+</div>
+<%- include('../user_partials/footer.ejs') %> 

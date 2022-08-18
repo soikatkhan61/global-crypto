@@ -5,7 +5,7 @@
             <h3 class="text-primary text-center bg-white border py-3">Complete the task and earn <span class="text-danger">money !!</span></h3>
 
             <div class="card">
-               <% if(!task){ %> 
+               <% if(task.length==0){ %> 
 
                     <div class="card-body">
                         <h4 class="text-center">You need to apply for getting task. Click the button below.</h4>
@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="mt-4 text-center">
-                        <h4 class="text-danger fw-bold">Remaing Task: <%= task.remain_task %>  </h4>
+                        <h4 class="text-danger fw-bold">Remaing Task: <%= task[0].remain_task %>  </h4>
                     </div>
 
                     <div class="mt-4">
@@ -49,7 +49,7 @@
                                     <h4 class="text-center">846 TK</h4>
                                 </div>
                             </div>
-                            <div class="card my-2 px-3 py-2 bg-info mx-1" style="width: 100%;">
+                            <div class="card my-2 px-3 py-2 bg-primary mx-1" style="width: 100%;">
                                 <div class="card-header text-center"> Todays Earning</div>
                                 <div class="card-body">
                                     <h4 class="text-center">846 TK</h4>

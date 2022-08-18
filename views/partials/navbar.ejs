@@ -34,37 +34,28 @@
 
           <% if(isLoggedIn){ %> 
             <li class="nav-item">
+              <a class="nav-link" href="/admin">admin</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="/task">Task</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/auth/logout">Logout</a>
-            </li>
            <% }else{ %> 
-            <li class="nav-item">
-              <a class="nav-link" href="/auth/login">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/auth/sign-up">Sign Up</a>
-            </li>
            <% } %> 
            <li class="nav-item">
-            <a class="nav-link" href="/package">Package</a>
+            <a class="nav-link" href="/packages">Package</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/pg">Play ground</a>
+            <a class="nav-link" href="/pg">pg</a>
           </li>
         </ul>
         <!-- Left links -->
       </div>
       <!-- Collapsible wrapper -->
   
-      <!-- Right elements -->
+      <% if(isLoggedIn){ %> 
+        <!-- Right elements -->
       <div class="d-flex align-items-center">
-        <!-- Icon -->
-        <a class="text-reset me-3" href="#">
-          <i class="fas fa-shopping-cart"></i>
-        </a>
-  
+
         <!-- Avatar -->
         <div class="dropdown">
           <a
@@ -106,6 +97,12 @@
         </div>
       </div>
       <!-- Right elements -->
+      <% }else{ %> 
+        <div class="d-flex align-items-center">
+          <a class="btn btn-link me-2" href="/auth/login">login</a>
+          <a class="text-light btn btn-primary" href="/auth/sign-up">Sign up for free</a> 
+        </div>
+      <% } %> 
     </div>
     <!-- Container wrapper -->
   </nav>

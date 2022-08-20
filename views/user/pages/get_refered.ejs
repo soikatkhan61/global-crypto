@@ -1,54 +1,50 @@
 <%- include('../user_partials/header.ejs') %> 
 
-<div class="container-fluid py-2" style="background-color: #28223F; height: 100vh;">
+<div class="container-fluid py-2" style="background:#eee;height: 100vh;">
 
   <% if(customError){ %> 
     <p class="py-2 bg-warning text-light text-center rounded"><%= customError %> </p>
   <% } %> 
 
-  <% if(userProfile.isReffered){ %> 
-    <h3 class="text-light text-center py-5">You are referred by <span class="fw-bold" style="color:rgb(250, 250, 64)"><%= userProfile.referred_by.username %></span> </h3>
-  <% } %> 
-    <div class="container mt-4 d-flex  justify-content-center">
-      <% if(userProfile.isReffered){ %> 
-        <div class="card-container">
-          <span class="pro">PRO</span>
-          <img class="round" src="/images/user.png" alt="user" height="200" width="200"/>
-          <h3 style="margin: 10px 0;"><%= userProfile.referred_by.username %></h3>
-          <h6 style="margin: 5px 0;
-          text-transform: uppercase;">New York</h6>
-          <p slot="font-size: 14px;
-          line-height: 21px;">User interface designer and <br/> front-end developer</p>
-          <div class="buttons">
-            <button class="primary">
-              Total Member: <%= userProfile.referred_by.refer_list.length %>
-            </button>
-            <button class="primary ghost">
-              Following
-            </button>
-          </div>
-          
+  <% if(userProfile.length > 0){ %> 
+    <h2 class="text-center fw-bold text-success mt-3">Congratulations!!</h2>
+    <h3 class="text-dark py-3 text-center">You are referred by <span class="fw-bold"><%= userProfile[0].username %></span> </h3>
+    <hr>
+    <div class="d-flex  justify-content-center">
+      <div class="card-container">
+        <span class="pro">PRO</span>
+        <img class="round" src="/images/user.png" alt="user" height="200" width="200"/>
+        <h3 style="margin: 10px 0;"><%= userProfile[0].username %></h3>
+        <h6 style="margin: 5px 0;
+        text-transform: uppercase;">New York</h6>
+        <p slot="font-size: 14px;
+        line-height: 21px;">User interface designer and <br/> front-end developer</p>
+        <div class="buttons">
+          <button class="primary">
+            Total Member: 56
+          </button>
+          <button class="primary ghost">
+            Following
+          </button>
         </div>
-      <% }else{ %> 
-        <div class="login-box">
-          <h2>Enter Refer ID</h2>
-          <form action="/user/get-refered" method="post">
-            <div class="user-box">
-              <input type="text" name="refer_id" required>
-              <label>Refer ID</label>
-            </div>
-            <button type="submit">
-              <span></span>
-
-              <span></span>
-              <span></span>
-              <span></span>
-              Submit
-            </button>
-          </form>
-        </div>
-      <% } %> 
         
+      </div>
+    </div>
+  <% }else{ %> 
+    <div class="container mt-4 d-flex  justify-content-center">
+    <div class="shadow-sm bg-light p-4">
+      <form action="/user/get-refered" method="post">
+        <h3>Refer People and Grow
+          your community</h3>
+        <div class="form-outline mb-4">
+          <input type="text" id="xx" name="refer_name" class="form-control" required/>
+          <label class="form-label" for="xx">Refer Username</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Refer Him</button>
+      </form>
+    </div>
+      <% } %>  
     </div>
 </div>
 <%- include('../user_partials/footer.ejs') %> 

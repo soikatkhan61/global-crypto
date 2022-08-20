@@ -1,0 +1,45 @@
+<%- include('../user_partials/header.ejs') %>
+
+    <div class="container-fluid py-2" style="min-height: 100vh;background: #eee;">
+        <div class="container mt-4">
+            <div class="table-responsive">
+                <table class="table  align-middle mb-0 bg-white">
+                    <thead class="bg-light table-dark">
+                      <tr>
+                        <th>Withdraw id</th>
+                        <th>Amount</th>
+                        <th>Payment Mehthod</th>
+                        <th>Payment Number</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <% if(history.length === 0){ %> 
+                            <h4 class="text-center">No history yet! Earn More, Make Payment!</h4>
+                        <% }else{ %> 
+                           <% for(let h of history){ %> 
+                            <td>
+                                <%= h.id %> 
+                            </td>
+                            <td>
+                              <p class="text-muted mb-0"> <%= h.amount %> TK </p>
+                            </td>
+                            <td>
+                                <%= h.method %>
+                            </td>
+                            <td><%= h.number %></td>
+                            <td>
+                                <span class="badge badge-<%= h.statuss == "pending" ? "danger" : "success" %>   rounded-pill d-inline"><%= h.statuss %></span>
+                            </td>
+                            <td><%= h.createdAt.toDateString() %></td>
+                           <% } %> 
+                        <% } %> 
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+    <%- include('../user_partials/footer.ejs') %>

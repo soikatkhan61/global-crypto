@@ -9,18 +9,19 @@ exports.taskGetController = async (req, res, next) => {
       `SELECT users.*,users.id as userId, task.*
     FROM users 
     JOIN task 
-    ON task.user_id =users.id where task.id=?`,
+    ON task.user_id =users.id where task.user_id=?`,
       [req.user.id],
       (e, data) => {
         if (e) {
           return next(e);
         } else {
-          if (data) {
-            let hours = moment().diff(moment(data.updatedAt), "hours");
+          if (data.length>0) {
+            let hours = moment().diff(moment(data[0].updatedAt), "hours");
             console.log(hours);
-            if (hours >= 24) {
+            if (parseInt(hours) >= 24) {
+              console.log("24 hoice")
               db.query(
-                "updata task set remain_task = 10 where user_id=?",
+                "update task set remain_task = 10 where user_id=?",
                 [req.user.id],
                 (e, data) => {
                   if (e) {
@@ -29,8 +30,8 @@ exports.taskGetController = async (req, res, next) => {
                 }
               );
             }
-            res.render("pages/task", { flashMessage: "", task:data });
           }
+          res.render("pages/task", { flashMessage: "", task:data });
         }
       }
     );
@@ -73,7 +74,7 @@ exports.taskPostController = async (req, res, next) => {
       if(e){
         return next(e)
       }else{
-        if(data.length > 0 && data[0].remain_task >= 0){
+        if(data.length > 0 && data[0].remain_task > 0){
           db.query("update task set remain_task = remain_task -1,updatedAt=? where user_id = ?",[new Date,req.user.id],(e,data)=>{
             if(e){
               return next(e)

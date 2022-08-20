@@ -1,33 +1,55 @@
 const User = require('../../models/User')
+const db = require("../../config/db.config")
 
 exports.getReferGetController =async (req,res,next) =>{
-    let userProfile = await User.findById({_id:req.user._id}).populate('referred_by')
-    res.render("user/pages/get_refered",{title:"Get Refered",userProfile,customError:""})
+   try {
+    db.query("select username,email,mlm.* ,mlm.id as mlm_id from users join mlm on mlm.refBy = users.username where mlm.user_id=?",[req.user.id],(e,data)=>{
+        if(e){
+            return next(e)
+        }else{
+            return res.render("user/pages/get_refered",{title:"Get Refered",userProfile:data,customError:""})
+        }
+    })
+   } catch (error) {
+        next(error)
+   }
 }
 
 exports.getReferPostController =async (req,res,next) =>{
-   let {refer_id} = req.body
+   let {refer_name} = req.body
+   refer_name = refer_name.trim()
    try {
+    db.query("select username,email,mlm.* ,mlm.id as mlm_id from users join mlm on mlm.refBy = users.username where mlm.user_id=?",[req.user.id],(e,data)=>{
+        if(e){
+            return next(e)
+        }else{
+            if(data.length>0){
+                if(data[0].user_id  ||  refer_name === req.user.username){
+                    return  res.render("user/pages/get_refered",{title:"Get Refered",userProfile:data[0],customError:"You cant refer yourself"})
+                }
+            }else{
 
-    let userProfile = await User.findById({_id:req.user._id}).populate('referred_by')
-    if(req.user.isReffered ||  refer_id === req.user._id.toString()){
-        return  res.render("user/pages/get_refered",{title:"Get Refered",userProfile ,customError: "You cant refer yourself"})
-    }
+                db.query("select * from users where username=?",[refer_name],(e,findRefer)=>{
+                    if(e){
+                        return next(e)
+                    }else{
+                        if(findRefer.length>0){
+                            db.query("insert into mlm values(?,?,?,?,?,?)",[null,req.user.id,1,refer_name,null,null],(e,data)=>{
+                                if(e){
+                                    return next
+                                }else{
+                                    res.redirect("/user/get-refered")
+                                }
+                            })
+                        }else{
+                            return res.status(404).send("Refer Name is incorrect or may he/she deleted him/her account")
+                        }
+                    }
+                })
+            }
+        }
+    })
 
-    let user = await User.findById({_id:refer_id})
-
-
-    //return console.log(req.user.referred_by !== user._id)
-    if(user && !user.refer_list.includes(req.user._id)){
-        await User.findByIdAndUpdate({_id:req.user._id},{$set:{referred_by:user._id,isReffered:true},})
-        await User.findByIdAndUpdate({_id:user._id},{$push:{refer_list:req.user._id}})
-    }else{
-        return  res.render("user/pages/get_refered",{title:"Get Refered",userProfile ,customError: "You already referred him"})
-    }
-
-
-    res.render("user/pages/get_refered",{title:"Get Refered",userProfile ,customError: `Successfully Reffered by ${user.username}`})
-   
    } catch (error) {
     next(error)
    }

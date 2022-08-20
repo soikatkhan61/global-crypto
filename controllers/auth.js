@@ -59,9 +59,9 @@ exports.signUpPostController = async (req, res, next) => {
     let hashPassword = await bcrypt.hash(password, 11);
 
 
-    let v_id = Math.floor(Math.random() * (99999999 - 11111111 + 1) + 11111111);
+    let v_id = Math.floor(Math.random() * (9999 - 1111 + 1) + 1111);
     db.query(
-      "use treders_bd;insert into users values(?,?,?,?,?,?,?,?,?)",
+      "use treders_bd;insert into users values(?,?,?,?,?,?,?,?,?,?,?)",
       [
         null,
         "user",
@@ -72,6 +72,8 @@ exports.signUpPostController = async (req, res, next) => {
         v_id,
         "/uploads/soikat.jpg",
         null,
+        0,
+        500
       ],
       (e, user) => {
         if (e) {
@@ -112,7 +114,7 @@ exports.signUpPostController = async (req, res, next) => {
                 } else {
                   res.render("pages/auth/verify", {
                     title: "Verify your account",
-                    user,
+                    user:user[0],
                     flashMessage: Flash.getMessage(req),
                   });
                   console.log("email sent: " + info.response);
@@ -235,9 +237,7 @@ exports.verifyController = async (req, res, next) => {
     return res.sendStatus(500);
   }
   try {
-   
     db.query("select * from users where email=? and verfication_id=? LIMIT 1",[userEmail,verify_id],(e,user)=>{
-        console.log("ami ekhane");
         if(e){
             next(e)
         }else if(user.length > 0){
@@ -247,7 +247,22 @@ exports.verifyController = async (req, res, next) => {
                     next(e)
                 }
                 else{
-                  res.redirect("/");
+                  let token =  jwt.sign({
+                    id:user[0].id,
+                    username:user[0].username,
+                    email:user[0].email
+                  },process.env.JWT_SECRET_KEY,{expiresIn:'30d'})
+      
+                  req.session.isLoggedIn = true;
+                  req.session.token = token;
+                  req.session.user = user[0];
+                  req.session.save((err) => {
+                    if (err) {
+                      return next(err);
+                    }
+                    req.flash("success", "Successfully Logged In");
+                    res.redirect("/");
+                  });
                 }
             })
         }

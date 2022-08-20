@@ -7,9 +7,8 @@ CREATE TABLE IF NOT EXISTS users (
     isVerified int(1) DEFAULT 0,
     verfication_id int(8) DEFAULT -1,
     profilePics varchar(200) DEFAULT "/uploads/soikat.jpg",
-    balance int(7) DEFAULT 500;
-    isRef int(1) DEFAULT 0;
-    refBy int DEFAULT null,
+    balance int(7) DEFAULT 0,
+    pending_balance int(6) DEFAULT 500,
     createdAt TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
 );
 
@@ -58,3 +57,24 @@ CREATE TABLE IF NOT EXISTS pkg_payment(
     createdAt TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
     updatedAt TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
 );
+
+CREATE TABLE IF NOT EXISTS mlm (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id int , FOREIGN key(user_id) REFERENCES users(id),
+    isRef int(1) DEFAULT 0,
+    refBy varchar(100), FOREIGN KEY(refBy) REFERENCES users(username),
+    updatedAt TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    createdAt TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
+);
+
+CREATE TABLE IF NOT EXISTS withdraw (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id int , FOREIGN key(user_id) REFERENCES users(id),
+    amount int(6) not null,
+    method varchar(20) not null,
+    number varchar(20) not null,
+    statuss enum("paid","pending") DEFAULT "pending",
+    updatedAt TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    createdAt TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
+);
+

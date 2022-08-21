@@ -93,7 +93,7 @@ exports.pkgApproveGet = async (req, res, next) => {
 	try {
 		db.query(
 			`SELECT
-    users.id as userID, users.username, users.email, packages.package_name, packages.price, packages.package_comission,pkg_payment.id as  pkg_payment_id,pkg_payment.payment_method,pkg_payment.createdAt,pkg_subscriber.approval_status,pkg_payment.payment_number,pkg_payment.transaction_number
+    users.id as userID, users.username, users.email, packages.package_name, packages.price, packages.package_comission,pkg_payment.id as  pkg_payment_id,pkg_payment.payment_method,pkg_payment.createdAt,pkg_subscriber.approval_status,pkg_subscriber.id as pkg_subb_id ,pkg_payment.payment_number,pkg_payment.transaction_number
   FROM packages
   
   JOIN pkg_payment
@@ -130,10 +130,15 @@ exports.pkgApprovPostConrtoller = async (req, res, next) => {
 		return parseInt(Math.ceil((percentage / 100) * totalValue));
 	}
 
-	function approve_package_requrest(pkg_sub_id) {
+  let payment_id = req.params.payment_id;
+	let ref_id = req.query.ref_id;
+	let pkg_subb_id = req.query.pkg_sub_id;
+
+
+	function approve_package_requrest() {
 		db.query(
 			"update pkg_subscriber set approval_status=1 where id=? LIMIT 1",
-			[data[0].pkg_sub_id],
+			[pkg_subb_id],
 			(e, data) => {
 				if (e) {
 					return false;
@@ -143,9 +148,6 @@ exports.pkgApprovPostConrtoller = async (req, res, next) => {
 			}
 		);
 	}
-
-	let payment_id = req.params.payment_id;
-	let ref_id = req.query.ref_id;
 
 	try {
 		db.query(
@@ -263,9 +265,7 @@ exports.pkgApprovPostConrtoller = async (req, res, next) => {
 																															bonusThird
 																														);
 																													}
-																													return res.redirect(
-																														"/admin/packages/approve"
-																													);
+                                                          approve_package_requrest()
 																												}
 																											}
 																										);
@@ -273,9 +273,7 @@ exports.pkgApprovPostConrtoller = async (req, res, next) => {
 																										console.log(
 																											"Not Found third level "
 																										);
-																										return res.redirect(
-																											"/admin/packages/approve"
-																										);
+                                                    approve_package_requrest()
 																									}
 																								}
 																							}
@@ -285,21 +283,20 @@ exports.pkgApprovPostConrtoller = async (req, res, next) => {
 																			}
 																		);
 																	} else {
-																		console.log("Not Found second level ");
-																		return res.redirect(
-																			"/admin/packages/approve"
-																		);
+                                    approve_package_requrest()
 																	}
 																}
 															}
 														);
-													}
+													}else{
+                            approve_package_requrest()
+                          }
 												}
 											}
 										);
 									} else {
 										console.log("Not Found 1st level");
-										return res.redirect("/admin/packages/approve");
+                    approve_package_requrest()
 									}
 								}
 							}

@@ -6,7 +6,7 @@ exports.renderWithdraw = (req,res,next) =>{
             return next(e)
         }else{
             if(data.length > 0){
-                res.render("user/pages/withdraw",{title:"Withdraw Money",balanceInfo:data[0]})
+                res.render("user/pages/withdraw",{title:"Withdraw Money",balanceInfo:data[0],error:false,value:""})
             }else{
                 res.status(404).send("Users not found!")
             }
@@ -16,14 +16,37 @@ exports.renderWithdraw = (req,res,next) =>{
 
 exports.withdrawPostController = (req,res,next) =>{
     let {amount,payment_number,payment_method} = req.body
-    
-    db.query("insert into withdraw values (?,?,?,?,?,?,?,?)",[null,req.user.id,amount,payment_method,payment_number,"pending",null,null],(e,data)=>{
+    db.query("select balance from users where id=?",[req.user.id],(e,data)=>{
         if(e){
             return next(e)
         }else{
-            console.log("withdraw reqested is complete")
+            if(data.length>0){
+                if(amount>data[0].balance){
+                    res.render("user/pages/withdraw",{title:"Withdraw Money",balanceInfo:data[0],error:true,value:amount})
+                }else{
+                    db.query("update users set balance=balance - ? where id = ?",[amount,req.user.id],(e,data)=>{
+                        if(e){
+                            return next(e)
+                        }else{
+                            if(data.changedRows == 1){
+                                db.query("insert into withdraw values (?,?,?,?,?,?,?,?)",[null,req.user.id,amount,payment_method,payment_number,"pending",null,null], function(err, results) {
+                                    if(err){
+                                        return next(err)
+                                    }else{
+                                        return res.redirect("/user/withdraw/history")
+                                    }
+                                })
+                            }else{
+                                res.status(500).send("something went wrong")
+                            }
+                        }
+                    })
+                    
+                }
+            }
         }
-    })   
+    })
+    
 }
 
 exports.renderWithdrawHistory = (req,res,next) =>{

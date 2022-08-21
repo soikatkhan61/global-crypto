@@ -18,7 +18,7 @@
                         <% if(history.length === 0){ %> 
                             <h4 class="text-center">No history yet! Earn More, Make Payment!</h4>
                         <% }else{ %> 
-                           <% for(let h of history){ %> 
+                           <% for(let h of history.reverse()){ %> 
                             <tr>
                             <td>
                                 <%= h.id %> 

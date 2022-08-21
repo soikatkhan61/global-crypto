@@ -18,9 +18,12 @@
                             <input class="form-control" disabled />
                             <label class="form-label">Your Account Balance: <span class="fw-bold"><%= balanceInfo.balance %> </span> TK</label>
                         </div>
-                        <div class="form-outline mb-3">
-                            <input class="form-control" name="amount" type="number" required/>
+                        <div class="form-outline mb-4">
+                            <input class="form-control <%= error ? 'is-invalid': '' %>" max="<%= balanceInfo.balance %>" name="amount" type="number" value="<%= value ? value : '' %>" required/>
                             <label class="form-label">Withdraw amount *</label>
+                            <div class="invalid-feedback">
+                                Amount should be less than <%= balanceInfo.balance %>
+                            </div>
                         </div>
                         <div class="mb-2">
                             <script>
@@ -44,7 +47,7 @@
                         
                         <!-- quantity input -->
                         <div class="form-outline mb-3">
-                            <input type="text" name="payment_number"  id="total_dollar" class="form-control" required/>
+                            <input type="text" name="payment_number" max="15"  id="total_dollar" class="form-control" required/>
                             <label class="form-label" for="total_dollar">Payment Number *</label>
                         </div>
 

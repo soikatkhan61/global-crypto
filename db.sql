@@ -63,9 +63,11 @@ CREATE TABLE IF NOT EXISTS mlm (
     user_id int , FOREIGN key(user_id) REFERENCES users(id),
     isRef int(1) DEFAULT 0,
     refBy varchar(100), FOREIGN KEY(refBy) REFERENCES users(username),
+    ref_by_id int, FOREIGN KEY(ref_by_id) REFERENCES users(id),
     updatedAt TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
     createdAt TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
 );
+
 
 CREATE TABLE IF NOT EXISTS withdraw (
     id INT PRIMARY KEY AUTO_INCREMENT,

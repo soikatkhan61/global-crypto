@@ -170,7 +170,7 @@ a {
 
 .dropdown-icon {
     --size: 15px;
-    --color: var(--text-color);
+    --color: white;
     height: var(--size);
     width: var(--size);
     position: relative;
@@ -211,7 +211,7 @@ a {
 }
 
 .sidebar-menu > li > a:hover > .dropdown-icon {
-    --color: var(--main-color);
+    --color: yellow;
 }
 
 .sidebar-menu-dropdown-content {

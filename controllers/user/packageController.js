@@ -55,6 +55,7 @@ exports.packageBuyPostController = async (req, res, next) => {
     }
   );
 };
+
 exports.renderMyPackage = async (req, res, next) => {
   try {
     db.query(

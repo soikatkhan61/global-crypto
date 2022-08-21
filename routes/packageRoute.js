@@ -6,11 +6,11 @@ const {
 } = require('../middleware/authMiddleware')
 
 const {packageGetController,packageBuyPostController} = require('../controllers/user/packageController')
+const {isRef} = require("../middleware/mlm_middleware")
 
 
 
-
-router.get("/buy",isAuthenticated,packageBuyPostController)
+router.get("/buy",isAuthenticated,isRef,packageBuyPostController)
 
 router.get("/",packageGetController)
 

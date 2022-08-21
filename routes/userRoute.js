@@ -2,9 +2,9 @@ const router = require("express").Router()
 
 
 const {
-    isUnAuthenticated,
     isAuthenticated
 } = require('../middleware/authMiddleware')
+const {isRef} = require("../middleware/mlm_middleware")
 
 const {getReferGetController,getReferPostController,dashboardGetController} = require('../controllers/user/mlm')
 const {renderMyPackage,renderPkgPayment,pkgPaymentPostContrller} = require("../controllers/user/packageController")

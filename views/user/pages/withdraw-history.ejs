@@ -15,11 +15,11 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
                         <% if(history.length === 0){ %> 
                             <h4 class="text-center">No history yet! Earn More, Make Payment!</h4>
                         <% }else{ %> 
                            <% for(let h of history){ %> 
+                            <tr>
                             <td>
                                 <%= h.id %> 
                             </td>
@@ -34,9 +34,9 @@
                                 <span class="badge badge-<%= h.statuss == "pending" ? "danger" : "success" %>   rounded-pill d-inline"><%= h.statuss %></span>
                             </td>
                             <td><%= h.createdAt.toDateString() %></td>
+                          </tr>
                            <% } %> 
                         <% } %> 
-                      </tr>
                     </tbody>
                   </table>
             </div>

@@ -14,16 +14,15 @@
                         }
                     </script>
                         <select id="country" class="py-2 px-4 mb-3" onchange="update();" style="width: 100%; outline: black">
-                          <option class="py-2 px-5" value=" none">Package Name</option>
+                          <option class="py-2 px-5" value="none" disabled>Package Name</option>
 
                           <% for(let p of pkgs){ %>
                             <option class="py-2 px-5" <%= p.package_name === pkg[0].package_name ? "selected" : "disabled" %>  value="<%= p.package_name %>" ><%= p.package_name %></option>
                           <% } %> 
                         </select>
-                        <input id="result" name="package_name"  value="<%= pkg[0].package_name ? pkg.package_name : '' %>"  class="d-none">
-                      
+                        <input id="result" name="package_name"  value="<%=pkg[0].package_name%>"  class="d-none">
+
                         </div>
-                  
                     <!-- quantity input -->
                     <div class="form-outline mb-3">
                       <input type="number" name="price" value="<%= pkg[0].price %>" id="total_dollar" class="form-control" />

@@ -29,12 +29,12 @@ exports.getReferPostController =async (req,res,next) =>{
                 }
             }else{
 
-                db.query("select * from users where username=?",[refer_name],(e,findRefer)=>{
+                db.query("select id,username from users where username=?",[refer_name],(e,findRefer)=>{
                     if(e){
                         return next(e)
                     }else{
                         if(findRefer.length>0){
-                            db.query("insert into mlm values(?,?,?,?,?,?)",[null,req.user.id,1,refer_name,null,null],(e,data)=>{
+                            db.query("insert into mlm values(?,?,?,?,?,?,?)",[null,req.user.id,1,refer_name,findRefer[0].id,null,null],(e,data)=>{
                                 if(e){
                                     return next
                                 }else{
@@ -56,7 +56,6 @@ exports.getReferPostController =async (req,res,next) =>{
 
    
 }
-
 
 exports.dashboardGetController = async (req,res,next) =>{
     res.render("user/dashboard",{title: "Dashboard", userProfile:""})

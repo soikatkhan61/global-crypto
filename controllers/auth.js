@@ -2,7 +2,6 @@ const db = require("../config/db.config");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("config");
-const User = require("../models/User");
 const { validationResult } = require("express-validator");
 const errorFormatter = require("../utils/validationErrorFormatter");
 const Flash = require("../utils/Flash");
@@ -169,7 +168,6 @@ exports.loginPostController = async (req, res, next) => {
       if (e) {
         next(e)
       }
-      console.log(data.length)
       if (data.length == 0) {
         req.flash("fail", "Wrong Credential");
         return res.render("pages/auth/auth", {
@@ -272,6 +270,73 @@ exports.verifyController = async (req, res, next) => {
     next(e);
   }
 };
+
+exports.changePasswordGetController = async (req,res,next) => {
+  res.render("user/pages/change_password",{title:'Change Password',error: '',notMatched:false})
+}
+
+exports.changePasswordPostController = async (req,res,next) => {
+  let {old_password,new_password1,new_password2} = req.body
+  console.log(req.body)
+
+  let errors = validationResult(req).formatWith(errorFormatter);
+  if (!errors.isEmpty()) {
+    return res.render("user/pages/change_password", {
+      title: "Change Password",
+      error: errors.mapped(),
+      notMatched:false
+    });
+  }
+
+  try {
+    if(new_password2 !== new_password1){
+      return res.render("user/pages/change_password", {
+        title: "Change Password",
+        error: errors.mapped(),
+        notMatched: "New Password and Confirm password is not matched"
+      });
+    }
+    let hashPassword = await bcrypt.hash(new_password1, 11);
+    bcrypt.compare(old_password, req.user.password, function (err, match) {
+     
+      if(err){
+        return next(err)
+      }
+      else if(match === false){
+        console.log("i am here")
+        return res.render("user/pages/change_password", {
+          title: "Change Password",
+          error: errors.mapped(),
+          notMatched: "Old password is not valid"
+        });
+      }else{
+        db.query("update users set password = ? where id=?",[hashPassword,req.user.id],(e,data)=>{
+          if(e){
+            return next(e)
+          }else{
+            if(data.changedRows == 1){
+              req.flash("success","Password Changed Succefully,Login Now!")
+              req.session.destroy((err) => {
+                if (err) {
+                  return next(err);
+                }
+               res.clearCookie("token");
+              res.redirect("/auth/login")
+              res.end()
+            });
+            
+            }else{
+              res.status(200).send("Something went wrong, try again with valid information!")
+            }
+          }
+        })
+      }
+    })
+    
+  } catch (error) {
+    next(e)
+  }
+}
 
 exports.logoutController = (req, res, next) => {
   req.session.destroy((err) => {

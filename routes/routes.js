@@ -5,6 +5,8 @@ const taskRoute = require("./taskRoute")
 const packageRoute = require("./packageRoute")
 const pg = require("./pg")
 
+const {searchResult} = require("../controllers/search")
+
 const routes = [
 
     {
@@ -30,6 +32,10 @@ const routes = [
     {
         path: "/pg",
         handler: pg
+    },
+    {
+        path: "/search",
+        handler: searchResult
     },
     {
         path: "/",

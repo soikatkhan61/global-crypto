@@ -1,6 +1,7 @@
 const router = require("express").Router()
 
 const signupValidator = require('../validator/auth/signupValidator')
+const changePasswordValidator = require('../validator/auth/changePasswordValidator')
 
 const {
     isUnAuthenticated,
@@ -14,7 +15,9 @@ const {
     loginGetController,
     loginPostController,
     verifyController,
-    logoutController
+    logoutController,
+    changePasswordGetController,
+    changePasswordPostController
 } = require("../controllers/auth")
 
 
@@ -27,6 +30,9 @@ router.post("/verify",verifyController)
 
 router.get("/login",isUnAuthenticated,loginGetController)
 router.post("/login",isUnAuthenticated,loginPostController)
+
+router.get("/change-password",isAuthenticated,changePasswordGetController)
+router.post("/change-password",isAuthenticated,changePasswordValidator,changePasswordPostController)
 
 router.get("/logout",logoutController)
 

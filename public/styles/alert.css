@@ -2,8 +2,7 @@
 
 .alert{
   background: #91E0B1;
-  padding: 20px 40px;
-  min-width: 420px;
+  padding: 15px 40px;
   position: absolute;
   right: 0;
   top: 10px;
@@ -73,7 +72,7 @@
 
 .alert .message{
   padding: 0 20px;
-  font-size: 18px;
+  font-size: 16px;
   color: black;
 }
 .alert .close-btn{

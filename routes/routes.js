@@ -3,9 +3,11 @@ const userRoute = require("./userRoute")
 const adminRoute = require("./adminRoute")
 const taskRoute = require("./taskRoute")
 const packageRoute = require("./packageRoute")
+const profileRoute = require("./profileRoute")
 const pg = require("./pg")
 
 const {searchResult} = require("../controllers/search")
+
 
 const routes = [
 
@@ -30,6 +32,10 @@ const routes = [
         handler: packageRoute
     },
     {
+        path: "/profile",
+        handler: profileRoute
+    },
+    {
         path: "/pg",
         handler: pg
     },
@@ -40,7 +46,7 @@ const routes = [
     {
         path: "/",
         handler: (req,res)=>{
-            res.render("pages/index",{flashMessage:""});
+            res.render("index",{flashMessage:""});
         }
     }
 ]

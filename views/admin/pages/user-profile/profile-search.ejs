@@ -1,0 +1,57 @@
+<%- include('../../partials/header.ejs')  %>
+<div class="container-fluid py-3">      
+    <div class="container">
+      <div class="py-4">
+        <div class="input-group">
+            <form action="/admin/search-user-profile" method="get" style="border-radius: 0;" class="d-flex  w-100">
+                <input type="search" name="username" style="border-radius: 0;" required  class=" rounded-0 form-control rounded" placeholder="Search Username" aria-label="Search" aria-describedby="search-addon" />
+                <button type="submit" class="btn text-light btn-sm btn-outline-primary bg-primary rounded-0 "> <i class="fas text-dark fa-search"></i>Search</button>
+              </form>
+        </div>
+    </div>
+    <hr>
+
+    <% if(searchResult.length>0){ %> 
+        <table class="table align-middle mb-0 bg-white">
+            <thead class="bg-light table-dark">
+              <tr>
+                <th>Info</th>
+                <th>Balance</th>
+                <th>Verified Status</th>
+                <th>Joinded On</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (let profile of searchResult){ %> 
+                <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <img
+                            src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                            alt=""
+                            style="width: 45px; height: 45px"
+                            class="rounded-circle"
+                            />
+                        <div class="ms-3">
+                          <a href="/profile/<%= profile.username %>" class="fw-bold mb-1 btn-link"><%= profile.username %></a>
+                          <p class="text-muted mb-0"><%= profile.email %></p>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <p class="fw-normal mb-1 fw-bold"><%= profile.balance %> TK</p>
+                    </td>
+                    <td>
+                      <span class="badge badge-<%= profile.isVerified == 1? 'success' : 'danger' %> rounded-pill d-inline"><%= profile.isVerified == 1? 'Verified' : 'Non Verified' %> </span>
+                    </td>
+                    <td><%= profile.createdAt.toDateString() %> </td>
+                  </tr>
+              <% }%> 
+            </tbody>
+          </table>
+    <% } %> 
+
+</div>
+<%- include('../../partials/footer.ejs')  %>
+</body>
+</html>

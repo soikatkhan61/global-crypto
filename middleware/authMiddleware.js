@@ -43,6 +43,13 @@ exports.isAuthenticated = (req,res,next) =>{
     next()
 }
 
+exports.isVerified = (req,res,next) =>{
+    if(req.session.user.verfication_id == 0){
+        return res.redirect('/auth/verify')
+    }
+    next()
+}
+
 exports.isUnAuthenticated = (req,res,next) => {
     if(req.session.isLoggedIn){
         return res.redirect('/')

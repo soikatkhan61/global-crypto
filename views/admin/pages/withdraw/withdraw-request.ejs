@@ -18,7 +18,7 @@
                   <th>Actions</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="table-hover">
                 <% for(let p of history){ %> 
                   <tr>
                     <td>
@@ -30,7 +30,8 @@
                             class="rounded-circle"
                             />
                         <div class="ms-3">
-                          <p class="fw-bold mb-1"><%= p.username %></p>
+                          <p class="fw-bold mb-1"><a class="btn-link" href="/profile/<%= p.username %>"><%= p.username %></a></p>
+                          <p class="text-muted mb-0"><%= p.email %></p>
                           <p class="text-muted mb-0"><%= p.email %></p>
                         </div>
                       </div>

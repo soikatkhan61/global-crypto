@@ -1,50 +1,8 @@
-    <!-- Button trigger modal -->
-    <!-- Modal -->
-    <div class="modal top fade" id="referLink" tabindex="-1" aria-labelledby="exampleModal2Label" aria-hidden="true"
-        data-mdb-backdrop="static" data-mdb-keyboard="true">
-        <div class="modal-dialog  ">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModal2Label">Refer code</h5>
-                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <input type="text" name="" id="refer_id_in_modal" value="<%= user._id %>" hidden>
-                    <p class="text-primary">
-                        <%= user.isReffered ? user._id : "You did not referred yet!" %>
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
-                        Close
-                    </button>
-                    <script>
-                        function myFunction() {
-                            var copyText = document.getElementById("refer_id_in_modal");
-                            var copyBtn = document.getElementById("copyBtn");
-                            copyText.select();
-                            copyText.setSelectionRange(0, 99999); /* For mobile devices */
-                            navigator.clipboard.writeText(copyText.value);
-                            copyBtn.innerText = "coppied"
-                        }
-                    </script>
-                    <% if(user.isReffered){ %> 
-                        <button type="button" id="copyBtn" class="btn btn-primary" onclick="myFunction()">copy <i
-                            class='bx bx-copy'></i></button>
-                    <% }else{ %>
-                        <a href="/user/get-refered" class="btn btn-primary">Get Reffered</a>
-                    <% } %> 
-                   
-                </div>
-            </div>
-        </div>
-    </div>
-
 
 <!-- SIDEBAR -->
-<div class="sidebar" style="background:#111;color:#FFF">
+<div class="sidebar" style="background:#10122d;color:#FFF">
     <div class="sidebar-logo">
-      <h2>Treaders BD</h2>
+      <h2><a href="/">Treaders BD</a></h2>
         <div class="sidebar-close" id="sidebar-close">
             <i class='bx bx-left-arrow-alt'></i>
         </div>
@@ -67,16 +25,23 @@
                 color:yellow
             }
         </style>
+        
         <li>
-            <a href="">
-                <i class='bx bxs-dollar-circle'></i>
-                <span>Withdraw</span>
+            <a href="/user/dashboard">
+                <i class='bx bx-home'></i>
+                <span>Home</span>
             </a>
         </li>
         <li>
             <a href="/user/my_package">
                 <i class='bx bx-package'></i>
                 <span>My package</span>
+            </a>
+        </li>
+        <li>
+            <a href="/task">
+                <i class='bx bx-task'></i>
+                <span>Task</span>
             </a>
         </li>
         <li class="sidebar-submenu">
@@ -105,7 +70,7 @@
             </a>
         </li>
         <li>
-            <a href="#" data-mdb-toggle="modal" data-mdb-target="#referLink">
+            <a href="/user/my-refer-link">
                 <i class='bx bx-link'></i>
                 <span>my refer link</span>
             </a>
@@ -114,6 +79,13 @@
             <a href="/auth/change-password">
                 <i class='bx bx-pin'></i>
                 <span>change password</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="/auth/logout">
+                <i class='bx bx-log-in'></i>
+                <span>Logout</span>
             </a>
         </li>
       

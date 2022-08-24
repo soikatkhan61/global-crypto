@@ -6,13 +6,15 @@ const {
 } = require('../middleware/authMiddleware')
 const {isRef} = require("../middleware/mlm_middleware")
 
-const {getReferGetController,getReferPostController,dashboardGetController} = require('../controllers/user/mlm')
+const {getReferGetController,getReferPostController,renderMyReferLink} = require('../controllers/user/mlm')
 const {renderMyPackage,renderPkgPayment,pkgPaymentPostContrller} = require("../controllers/user/packageController")
-
+const {dashboardGetController} = require("../controllers/user/dashboardController")
 const {renderWithdraw,withdrawPostController,renderWithdrawHistory} = require("../controllers/user/withdrawController")
 
 router.get("/get-refered",isAuthenticated,getReferGetController)
 router.post("/get-refered",isAuthenticated,getReferPostController)
+
+router.get("/my-refer-link",isAuthenticated,isRef,renderMyReferLink)
 
 router.get("/my_package",isAuthenticated,renderMyPackage)
 router.get("/pay/:pkg_id",isAuthenticated,renderPkgPayment)

@@ -21,7 +21,11 @@
         line-height: 21px;">User interface designer and <br/> front-end developer</p>
         <div class="buttons">
           <button class="primary">
-            Total Member: 56
+            <% if(total.length>0){ %> 
+              Total Member: <%= total[0].total_member %> 
+            <% }else{%> 
+              Total Member: 1
+            <% }%> 
           </button>
           <button class="primary ghost">
             Following
@@ -31,7 +35,7 @@
       </div>
     </div>
   <% }else{ %> 
-    <h4 class="text-center text-danger fst-italic">You need to refered someone to access our main features <br> like getting TASK, Buying Packages. <br> <span class="text-success">Refer Now!</span></h4>
+    <h5 class="text-center text-danger fst-italic my-3">You need to refered someone to access our main features <br> like getting TASK, Buying Packages and Generate your refer link!. <br> <span class="text-success">Refer Now!</span></h5>
     <div class="container mt-4 d-flex  justify-content-center">
     <div class="shadow-sm bg-light p-4">
       <form action="/user/get-refered" method="post">

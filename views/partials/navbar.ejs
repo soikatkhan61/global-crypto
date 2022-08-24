@@ -17,7 +17,7 @@
       <!-- Collapsible wrapper -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- Navbar brand -->
-        <a class="navbar-brand mt-2 mt-lg-0" href="#">
+        <a class="navbar-brand mt-2 mt-lg-0" href="/">
           <img
             src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
             height="15"
@@ -29,33 +29,34 @@
         <!-- Left links -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="/user/dashboard">Dashboard</a>
+            <a class="nav-link mx-1" href="/user/dashboard">Dashboard</a>
           </li>
-
           <% if(isLoggedIn){ %> 
             <li class="nav-item">
               <a class="nav-link" href="/admin">admin</a>
             </li>
+           <% }%> 
+
             <li class="nav-item">
               <a class="nav-link" href="/task">Task</a>
             </li>
-           <% }else{ %> 
-           <% } %> 
            <li class="nav-item">
             <a class="nav-link" href="/packages">Package</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/pg">pg</a>
           </li>
+          <div class="input-group" style="max-width: 220px; margin-right: 20px;">
+            <form action="/search" method="get" style="border-radius: 0;" class="d-flex">
+              <input type="search" name="username" style="border-radius: 0;" required  class=" rounded-0 form-control rounded" placeholder="Search Username" aria-label="Search" aria-describedby="search-addon" />
+              <button type="submit" class="btn btn-sm btn-outline-primary bg-primary rounded-0 "> <i class="fas text-light fa-search"></i></button>
+            </form>
+          </div>
         </ul>
-        <div class="input-group" style="max-width: 220px; margin-right: 20px;">
-          <form action="/search" method="get" style="border-radius: 0;" class="d-flex">
-            <input type="search" name="username" style="border-radius: 0;" required  class="form-control rounded" placeholder="Search Username" aria-label="Search" aria-describedby="search-addon" />
-            <button type="submit" class="btn btn-sm btn-outline-primary bg-primary"> <i class="fas text-light fa-search"></i></button>
-          </form>
-        </div>
+     
         <!-- Left links -->
       </div>
+   
       <!-- Collapsible wrapper -->
 
       

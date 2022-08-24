@@ -6,9 +6,9 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(255) NOT NULL,
     isVerified int(1) DEFAULT 0,
     verfication_id int(8) DEFAULT -1,
-    profilePics varchar(200) DEFAULT "/uploads/soikat.jpg",
-    balance int(7) DEFAULT 0,
-    pending_balance int(6) DEFAULT 500,
+    profilePics varchar(200) DEFAULT "/uploads/avater.jpg",
+    balance double(8,2) DEFAULT 500,
+    pending_balance double(8,2) DEFAULT 500,
     createdAt TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
 );
 
@@ -21,7 +21,6 @@ CREATE TABLE IF NOT EXISTS packages (
     createdAt TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
 );
 
---insert data into packages
 INSERT INTO `packages`(`id`, `package_name`, `price`, `package_comission`, `total_subscriber`, `createdAt`) VALUES (null,'silver',1000,2,0,null);
 INSERT INTO `packages`(`id`, `package_name`, `price`, `package_comission`, `total_subscriber`, `createdAt`) VALUES (null,'gold',5000,3,0,null);
 INSERT INTO `packages`(`id`, `package_name`, `price`, `package_comission`, `total_subscriber`, `createdAt`) VALUES (null,'platinum',30000,5,0,null);
@@ -32,7 +31,8 @@ CREATE TABLE IF NOT EXISTS task (
     user_id int, FOREIGN KEY(user_id) REFERENCES users(id),
     pkg_id int, FOREIGN KEY(pkg_id) REFERENCES packages(id),
     remain_task int(2) DEFAULT 10,
-    todays_comission int(3) DEFAULT 0,
+    todays_comission double(8,2) DEFAULT 0,
+    yesterday double(8,2) DEFAULT 0,
     updatedAt TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
     createdAt TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
 );

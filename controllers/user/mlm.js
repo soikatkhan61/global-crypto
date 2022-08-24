@@ -1,4 +1,4 @@
-const User = require('../../models/User')
+
 const db = require("../../config/db.config")
 
 exports.getReferGetController =async (req,res,next) =>{
@@ -7,7 +7,18 @@ exports.getReferGetController =async (req,res,next) =>{
         if(e){
             return next(e)
         }else{
-            return res.render("user/pages/get_refered",{title:"Get Refered",userProfile:data,customError:""})
+            if(data.length>0){
+                db.query(" select count(ref_by_id) as total_member from mlm WHERE ref_by_id = ?",[data[0].ref_by_id],(e,refTotalMember)=>{
+                    if(e){
+                        return next(e)
+                    }else{
+                        return res.render("user/pages/get_refered",{title:"Get Refered",userProfile:data,customError:"",total:refTotalMember})
+                    }
+                })
+            }else{
+                return res.render("user/pages/get_refered",{title:"Get Refered",userProfile:data,customError:"",total:''})
+            }
+            
         }
     })
    } catch (error) {
@@ -24,11 +35,11 @@ exports.getReferPostController =async (req,res,next) =>{
             return next(e)
         }else{
             if(data.length>0){
-                if(data[0].user_id  ||  refer_name === req.user.username){
-                    return  res.render("user/pages/get_refered",{title:"Get Refered",userProfile:data[0],customError:"You cant refer yourself"})
-                }
+                return  res.render("user/pages/get_refered",{title:"Get Refered",userProfile:data[0],customError:"You already referred someone!"})
             }else{
-
+                if(refer_name === req.user.username){
+                    return  res.render("user/pages/get_refered",{title:"Get Refered",userProfile:'',customError:"You cant refer yourself"})
+                }
                 db.query("select id,username from users where username=?",[refer_name],(e,findRefer)=>{
                     if(e){
                         return next(e)
@@ -61,3 +72,6 @@ exports.dashboardGetController = async (req,res,next) =>{
     res.render("user/dashboard",{title: "Dashboard", userProfile:""})
 }
 
+exports.renderMyReferLink = (req,res,next) =>{
+    res.render("user/pages/my-link",{title:'My refer link'})
+}

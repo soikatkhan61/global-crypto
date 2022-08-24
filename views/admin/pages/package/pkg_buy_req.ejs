@@ -49,7 +49,7 @@
                     <td>
                       <% if(p.approval_status ==0){ %>
                         <a href="/admin/packages/approve/<%=p.pkg_payment_id%>?ref_id=<%= p.username %>&pkg_sub_id=<%=p.pkg_subb_id %> " class="btn btn-sm btn-success">Approve</a>
-                        <a class="btn btn-sm btn-danger">Delete</a>
+                        <a href="/admin/packages/view-up-line?payment_id=<%=p.pkg_payment_id%>" class="btn btn-sm btn-primary">View Upline</a>
                       <% }else{%> 
                         <p class="fst-italic text-center">Confirmed</p>
                       <% }%> 

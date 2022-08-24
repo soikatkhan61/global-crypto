@@ -3,96 +3,92 @@ const db = require("../../config/db.config");
 
 //package CRUD
 exports.adminPackageGetController = async (req, res, next) => {
-	db.query("select * from packages", (e, data) => {
-		if (e) {
-			next(e);
-		}
-		if (data) {
-			res.render("admin/pages/package/package", {
-				pkg: data
-			});
-		} else {
-			res.status(404).send("no data found");
-		}
-	});
+  db.query("select * from packages", (e, data) => {
+    if (e) {
+      next(e);
+    }
+    if (data) {
+      res.render("admin/pages/package/package", {
+        pkg: data,
+      });
+    } else {
+      res.status(404).send("no data found");
+    }
+  });
 };
 
 exports.packageEditGetController = async (req, res, next) => {
-	try {
-		let package_name = req.query.package;
-		console.log(package_name);
-		db.query(
-			"select * from packages where package_name=?;select * from packages",
-			[package_name],
-			(e, data) => {
-				if (e) {
-					next(e);
-				}
-				if (!data[0] && !data[1]) {
-					return res.render("pages/error/500", {
-						flashMessage: ""
-					});
-				} else {
-					res.render("admin/pages/package/edit-package", {
-						pkg: data[0],
-						pkgs: data[1],
-					});
-				}
-			}
-		);
-	} catch (error) {
-		next(error);
-	}
+  try {
+    let package_name = req.query.package;
+    console.log(package_name);
+    db.query(
+      "select * from packages where package_name=?;select * from packages",
+      [package_name],
+      (e, data) => {
+        if (e) {
+          next(e);
+        }
+        if (!data[0] && !data[1]) {
+          return res.render("pages/error/500", {
+            flashMessage: "",
+          });
+        } else {
+          res.render("admin/pages/package/edit-package", {
+            pkg: data[0],
+            pkgs: data[1],
+          });
+        }
+      }
+    );
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.packageEditPostController = async (req, res, next) => {
-	let {
-		package_name,
-		price,
-		package_comission
-	} = req.body;
-	console.log(req.body);
-	try {
-		db.query(
-			"select * from packages where package_name=?;",
-			[package_name],
-			(e, data) => {
-				if (e) {
-					console.log(e);
-					next(e);
-				} else {
-					if (!data) {
-						return res.render("pages/error/404", {
-							flashMessage: ""
-						});
-					} else {
-						console.log(data);
-						db.query(
-							"update packages set price=? , package_comission =? where package_name=?",
-							[price, package_comission, package_name],
-							(e, data) => {
-								if (e) {
-									console.log(e);
-									next(e);
-								} else {
-									res.redirect("/admin/packages/analystic");
-								}
-							}
-						);
-					}
-				}
-			}
-		);
-	} catch (error) {
-		next(error);
-	}
+  let { package_name, price, package_comission } = req.body;
+  console.log(req.body);
+  try {
+    db.query(
+      "select * from packages where package_name=?;",
+      [package_name],
+      (e, data) => {
+        if (e) {
+          console.log(e);
+          next(e);
+        } else {
+          if (!data) {
+            return res.render("pages/error/404", {
+              flashMessage: "",
+            });
+          } else {
+            console.log(data);
+            db.query(
+              "update packages set price=? , package_comission =? where package_name=?",
+              [price, package_comission, package_name],
+              (e, data) => {
+                if (e) {
+                  console.log(e);
+                  next(e);
+                } else {
+                  res.redirect("/admin/packages/analystic");
+                }
+              }
+            );
+          }
+        }
+      }
+    );
+  } catch (error) {
+    next(error);
+  }
 };
 
 //package request get and accept
 exports.pkgApproveGet = async (req, res, next) => {
-	try {
-		db.query(
-			`SELECT
+  try {
+    db.query(
+      `SELECT
     users.id as userID, users.username, users.email, packages.package_name, packages.price, packages.package_comission,pkg_payment.id as  pkg_payment_id,pkg_payment.payment_method,pkg_payment.createdAt,pkg_subscriber.approval_status,pkg_subscriber.id as pkg_subb_id ,pkg_payment.payment_number,pkg_payment.transaction_number
   FROM packages
   
@@ -106,210 +102,281 @@ exports.pkgApproveGet = async (req, res, next) => {
     ON pkg_subscriber.user_id = pkg_payment.user_id
     where pkg_subscriber.approval_status = 0
      LIMIT 20`,
-			(e, data) => {
-				if (e) {
-					next(e);
-				} else {
-					if (data) {
-						res.render("admin/pages/package/pkg_buy_req", {
-							title: "Pakcage Request",
-							pkg: data,
-						});
-					}
-				}
-			}
-		);
-	} catch (error) {
-		next(e);
-	}
+      (e, data) => {
+        if (e) {
+          next(e);
+        } else {
+          if (data) {
+            res.render("admin/pages/package/pkg_buy_req", {
+              title: "Pakcage Request",
+              pkg: data,
+            });
+          }
+        }
+      }
+    );
+  } catch (error) {
+    next(e);
+  }
 };
 
 exports.pkgApprovPostConrtoller = async (req, res, next) => {
-	//utilities function
-	function percentage(percentage, totalValue) {
-		return parseInt(Math.ceil((percentage / 100) * totalValue));
-	}
+  //utilities function
+  function percentage(percentage, totalValue) {
+    return parseInt(Math.ceil((percentage / 100) * totalValue));
+  }
 
   let payment_id = req.params.payment_id;
-	let ref_id = req.query.ref_id;
-	let pkg_subb_id = req.query.pkg_sub_id;
+  let ref_id = req.query.ref_id;
+  let pkg_subb_id = req.query.pkg_sub_id;
 
+  function approve_package_requrest() {
+    db.query(
+      "update pkg_subscriber set approval_status=1 where id=? LIMIT 1",
+      [pkg_subb_id],
+      (e, data) => {
+        if (e) {
+          return false;
+        } else {
+          return res.redirect("/admin/packages/approve");
+        }
+      }
+    );
+  }
 
-	function approve_package_requrest() {
-		db.query(
-			"update pkg_subscriber set approval_status=1 where id=? LIMIT 1",
-			[pkg_subb_id],
-			(e, data) => {
-				if (e) {
-					return false;
-				} else {
-					return res.redirect("/admin/packages/approve");
-				}
-			}
-		);
-	}
+  try {
+    db.query(
+      "select pkg_payment.*,packages.price from packages join pkg_payment on pkg_payment.pkg_id = packages.id where pkg_payment.id= ? LIMIT 1",
+      [payment_id],
+      (e, pkg_payment) => {
+        if (e) {
+          return next(e);
+        } else {
+          if (pkg_payment.length > 0) {
+            //find first level from pkg_payment
+            db.query(
+              "select user_id,ref_by_id from mlm where user_id=?",
+              [pkg_payment[0].user_id],
+              (e, ref_user) => {
+                if (e) {
+                  return next(e);
+                } else {
+                  if (ref_user.length > 0) {
+                    console.log("Found 1st level " + ref_user[0].ref_by_id);
 
-	try {
-		db.query(
-			"select pkg_payment.*,packages.price from packages join pkg_payment on pkg_payment.pkg_id = packages.id where pkg_payment.id= ? LIMIT 1",
-			[payment_id],
-			(e, pkg_payment) => {
-				if (e) {
-					return next(e);
-				} else {
-					if (pkg_payment.length > 0) {
-						//find first level from pkg_payment
-						db.query(
-							"select user_id,ref_by_id from mlm where user_id=?",
-							[pkg_payment[0].user_id],
-							(e, ref_user) => {
-								if (e) {
-									return next(e);
-								} else {
-									if (ref_user.length > 0) {
-										console.log("Found 1st level " + ref_user[0].ref_by_id);
+                    let bonus = percentage(parseInt(pkg_payment[0].price), 15);
+                    //give bonus to first level
+                    console.log("Bonus: " + bonus);
+                    db.query(
+                      "update users set balance = balance + ? where id = ?",
+                      [bonus, ref_user[0].ref_by_id],
+                      (e, updateFirstLevel) => {
+                        if (e) {
+                          return next(e);
+                        } else {
+                          console.log(updateFirstLevel);
+                          if (updateFirstLevel.changedRows == 1) {
+                            console.log(
+                              "bonus gived to " +
+                                ref_user[0].ref_by_id +
+                                " TK" +
+                                bonus
+                            );
+                            //find second level
+                            db.query(
+                              "select user_id,ref_by_id from mlm where user_id=?",
+                              [ref_user[0].ref_by_id],
+                              (e, secondRefUser) => {
+                                if (e) {
+                                  return next(e);
+                                } else {
+                                  if (secondRefUser.length > 0) {
+                                    console.log(
+                                      "Found second level " +
+                                        secondRefUser[0].ref_by_id
+                                    );
 
-										let bonus = percentage(parseInt(pkg_payment[0].price), 15);
-										//give bonus to first level
-										console.log("Bonus: " + bonus);
-										db.query(
-											"update users set balance = balance + ? where id = ?",
-											[bonus, ref_user[0].ref_by_id],
-											(e, updateFirstLevel) => {
-												if (e) {
-													return next(e);
-												} else {
-													console.log(updateFirstLevel);
-													if (updateFirstLevel.changedRows == 1) {
-														console.log(
-															"bonus gived to " +
-															ref_user[0].ref_by_id +
-															" TK" +
-															bonus
-														);
-														//find second level
-														db.query(
-															"select user_id,ref_by_id from mlm where user_id=?",
-															[ref_user[0].ref_by_id],
-															(e, secondRefUser) => {
-																if (e) {
-																	return next(e);
-																} else {
-																	if (secondRefUser.length > 0) {
-																		console.log(
-																			"Found second level " +
-																			secondRefUser[0].ref_by_id
-																		);
+                                    let bonusSecond = percentage(
+                                      parseInt(pkg_payment[0].price),
+                                      10
+                                    );
+                                    //give bonus to second level
+                                    db.query(
+                                      "update users set balance = balance + ? where id = ?",
+                                      [bonusSecond, secondRefUser[0].ref_by_id],
+                                      (e, updateSecondLevel) => {
+                                        if (e) {
+                                          return next(e);
+                                        } else {
+                                          if (
+                                            updateSecondLevel.changedRows == 1
+                                          ) {
+                                            console.log(
+                                              "bonus gived to " +
+                                                secondRefUser[0].ref_by_id +
+                                                " TK" +
+                                                bonusSecond
+                                            );
 
-																		let bonusSecond = percentage(
-																			parseInt(pkg_payment[0].price),
-																			10
-																		);
-																		//give bonus to second level
-																		db.query(
-																			"update users set balance = balance + ? where id = ?",
-																			[bonusSecond, secondRefUser[0].ref_by_id],
-																			(e, updateSecondLevel) => {
-																				if (e) {
-																					return next(e);
-																				} else {
-																					if (
-																						updateSecondLevel.changedRows == 1
-																					) {
-																						console.log(
-																							"bonus gived to " +
-																							secondRefUser[0].ref_by_id +
-																							" TK" +
-																							bonusSecond
-																						);
+                                            //find third level
+                                            db.query(
+                                              "select user_id,ref_by_id from mlm where user_id=?",
+                                              [secondRefUser[0].ref_by_id],
+                                              (e, thirdUser) => {
+                                                if (e) {
+                                                  return next(e);
+                                                } else {
+                                                  if (thirdUser.length > 0) {
+                                                    console.log(
+                                                      "Found third level " +
+                                                        thirdUser[0].ref_by_id
+                                                    );
 
-																						//find third level
-																						db.query(
-																							"select user_id,ref_by_id from mlm where user_id=?",
-																							[secondRefUser[0].ref_by_id],
-																							(e, thirdUser) => {
-																								if (e) {
-																									return next(e);
-																								} else {
-																									if (thirdUser.length > 0) {
-																										console.log(
-																											"Found third level " +
-																											thirdUser[0].ref_by_id
-																										);
+                                                    let bonusThird = percentage(
+                                                      parseInt(
+                                                        pkg_payment[0].price
+                                                      ),
+                                                      3
+                                                    );
+                                                    //give bonus to third level
 
-																										let bonusThird = percentage(
-																											parseInt(
-																												pkg_payment[0].price
-																											),
-																											3
-																										);
-																										//give bonus to third level
-
-																										db.query(
-																											"update users set balance = balance + ? where id = ?",
-																											[
-																												bonusThird,
-																												thirdUser[0].ref_by_id,
-																											],
-																											(e, updateThird) => {
-																												if (e) {} else {
-																													if (
-																														updateThird.changedRows ==
-																														1
-																													) {
-																														console.log(
-																															"bonus gived to " +
-																															thirdUser[0]
-																															.ref_by_id +
-																															" TK" +
-																															bonusThird
-																														);
-																													}
-                                                          approve_package_requrest()
-																												}
-																											}
-																										);
-																									} else {
-																										console.log(
-																											"Not Found third level "
-																										);
-                                                    approve_package_requrest()
-																									}
-																								}
-																							}
-																						);
-																					}
-																				}
-																			}
-																		);
-																	} else {
-                                    approve_package_requrest()
-																	}
-																}
-															}
-														);
-													}else{
-                            approve_package_requrest()
+                                                    db.query(
+                                                      "update users set balance = balance + ? where id = ?",
+                                                      [
+                                                        bonusThird,
+                                                        thirdUser[0].ref_by_id,
+                                                      ],
+                                                      (e, updateThird) => {
+                                                        if (e) {
+                                                        } else {
+                                                          if (
+                                                            updateThird.changedRows ==
+                                                            1
+                                                          ) {
+                                                            console.log(
+                                                              "bonus gived to " +
+                                                                thirdUser[0]
+                                                                  .ref_by_id +
+                                                                " TK" +
+                                                                bonusThird
+                                                            );
+                                                          }
+                                                          approve_package_requrest();
+                                                        }
+                                                      }
+                                                    );
+                                                  } else {
+                                                    console.log(
+                                                      "Not Found third level "
+                                                    );
+                                                    approve_package_requrest();
+                                                  }
+                                                }
+                                              }
+                                            );
+                                          }
+                                        }
+                                      }
+                                    );
+                                  } else {
+                                    approve_package_requrest();
+                                  }
+                                }
+                              }
+                            );
+                          } else {
+                            approve_package_requrest();
                           }
-												}
+                        }
+                      }
+                    );
+                  } else {
+                    console.log("Not Found 1st level");
+                    approve_package_requrest();
+                  }
+                }
+              }
+            );
+          } else {
+            res
+              .status(404)
+              .send("Requested package payment info cannot found!");
+          }
+        }
+      }
+    );
+  } catch (error) {
+    next(e);
+  }
+};
+
+exports.viewUplineGetController = async (req, res, next) => {
+  let payment_id = req.query.payment_id;
+  try {
+    db.query(
+      "select pkg_payment.user_id,packages.price from packages join pkg_payment on pkg_payment.pkg_id = packages.id where pkg_payment.id= ? LIMIT 1",
+      [payment_id],
+      (e, payment_info) => {
+        if (e) {
+          return next(e);
+        } else {
+          if (payment_info.length > 0) {
+            db.query(
+              "select user_id,ref_by_id,users.username,users.balance,users.isVerified from mlm join users on mlm.ref_by_id = users.id where user_id=?",
+              [payment_info[0].user_id],
+              (e, level1) => {
+                if (e) {
+                  return next(e);
+                } else {
+                  if (level1.length > 0) {
+                    db.query(
+                      "select user_id,ref_by_id,users.username,users.balance,users.isVerified from mlm join users on mlm.ref_by_id = users.id where user_id=?",
+                      [level1[0].ref_by_id],
+                      (e, level2) => {
+						if(e){
+							return next(e)
+						}else{
+							if(level2.length>0){
+								db.query(
+									"select user_id,ref_by_id,users.username,users.balance,users.isVerified from mlm join users on mlm.ref_by_id = users.id where user_id=?",
+									[level2[0].ref_by_id],(e,level3)=>{
+										if(e){
+											return next(e)
+										}else{
+											if(level3.length>0){
+												res.render("admin/pages/package/view-up-line", {
+													level1,level2,level3
+												  });
+											}else{
+												res.render("admin/pages/package/view-up-line", {
+													level1,level2,level3:''
+												  });
 											}
-										);
-									} else {
-										console.log("Not Found 1st level");
-                    approve_package_requrest()
-									}
-								}
+										}
+									})
+								
+							}else{
+								res.render("admin/pages/package/view-up-line", {
+									level1,level2:""
+								  });
 							}
-						);
-					} else {
-						res
-							.status(404)
-							.send("Requested package payment info cannot found!");
-					}
-				}
-			}
-		);
-	} catch (error) {
-		next(e);
-	}
+						}
+					  }
+                    );
+                  } else {
+                    console.log("No any upline");
+                  }
+                }
+              }
+            );
+            console.log(payment_info);
+          } else {
+            res.status("Requested Payment info is not found!");
+          }
+        }
+      }
+    );
+  } catch (error) {
+    next(e);
+  }
 };

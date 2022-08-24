@@ -1,5 +1,4 @@
-const User = require("../../models/User");
-const Task = require("../../models/Task");
+
 const moment = require("moment");
 const db = require("../../config/db.config");
 
@@ -159,6 +158,3 @@ exports.pkgPaymentPostContrller = async(req,res,next) =>{
     }
 }
 
-exports.dashboardGetController = async (req, res, next) => {
-  res.render("user/dashboard", { title: "Dashboard", userProfile: "" });
-};

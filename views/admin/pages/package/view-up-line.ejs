@@ -1,0 +1,63 @@
+<%- include('../../partials/header.ejs')  %>
+<div class="container-fluid py-3">      
+    <div class="container py-5">
+        <div class="bg-primary py-3 mb-5">
+            <h5 class="text-center text-light mb-0">Username: Soikat, Buying Package: Silver, Price: 30000 TK</h5>
+        </div>
+        
+      <div class="row justify-content-evenly">
+        <% if(level1.length > 0) {%>
+            <div class="col-sm-12 col-md-6 col-lg-3 mx-1">
+                <div class="p-3 bg-light shadow-sm border border-primary border-2 rounded">
+                    <p class="text-center fw-bold">Level 1 Info</p>
+                    <hr>
+                    <p>username: <span class="fst-italic"><a class="btn-link" href="/profile/admin"><%=level1[0].username %> </a></span></p>
+                    <p>Verification Status: <span class="badge badge-<%= level1[0].isVerified == 1? 'success' : 'danger' %> rounded-pill d-inline"><%= level1[0].isVerified == 1? 'Verified' : 'Non Verified' %> </span>
+                    </p>
+                    <p>Balance: <span class="fst-italic"><%=level1[0].balance %> </span> TK</p>
+                    <div>
+                        <button class="btn btn-sm btn-success">Give 500</button>
+                        <button class="btn btn-sm btn-danger">Back 500</button>
+                    </div>
+                </div>
+            </div>
+        <% }%> 
+        <% if(level2.length > 0){ %>
+            <div class="col-sm-12 col-md-6 col-lg-3 mx-1">
+                <div class="p-3 bg-light shadow-sm border border-warning border-2 rounded">
+                    <p class="text-center fw-bold">Level 2 Info</p>
+                    <hr>
+                    <p>username: <span class="fst-italic"><a class="btn-link" href="/profile/admin"><%=level2[0].username %> </a></span></p>
+                    <p>Verification Status: <span class="badge badge-<%= level2[0].isVerified == 1? 'success' : 'danger' %> rounded-pill d-inline"><%= level2[0].isVerified == 1? 'Verified' : 'Non Verified' %> </span>
+                    </p>
+                    <p>Balance: <span class="fst-italic"><%=level2[0].balance %> </span> TK</p>
+                    <div>
+                        <button class="btn btn-sm btn-success">Give 500</button>
+                        <button class="btn btn-sm btn-danger">Back 500</button>
+                    </div>
+                </div>
+            </div>
+        <% } %> 
+        
+        <% if(level3.length > 0){ %>
+            <div class="col-sm-12 col-md-6 col-lg-3 mx-1">
+                <div class="p-3 bg-light shadow-sm border border-warning border-2 rounded">
+                    <p class="text-center fw-bold">Level 3 Info</p>
+                    <hr>
+                    <p>username: <span class="fst-italic"><a class="btn-link" href="/profile/admin"><%=level3[0].username %> </a></span></p>
+                    <p>Verification Status: <span class="badge badge-<%= level3[0].isVerified == 1? 'success' : 'danger' %> rounded-pill d-inline"><%= level3[0].isVerified == 1? 'Verified' : 'Non Verified' %> </span>
+                    </p>
+                    <p>Balance: <span class="fst-italic"><%=level3[0].balance %> </span> TK</p>
+                    <div>
+                        <button class="btn btn-sm btn-success">Give 500</button>
+                        <button class="btn btn-sm btn-danger">Back 500</button>
+                    </div>
+                </div>
+            </div>
+        <% } %> 
+      </div>
+    </div>
+</div>
+<%- include('../../partials/footer.ejs')  %>
+</body>
+</html>

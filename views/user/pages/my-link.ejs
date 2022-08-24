@@ -1,0 +1,29 @@
+<%- include('../user_partials/header.ejs') %>
+
+    <div class="container-fluid py-2" style="min-height: 100vh;background: #eee;">
+        <div class="container mt-4">
+            <div style="max-width: 80vw!important;">
+                <div class="shadom-sm  bg-light border">
+                    <div class="bg-primary py-4"></div>
+                    <h3 class="text-center my-4">My Refer Link</h3>
+                    <hr>
+                    <h6 class="text-center fw-bold fst-italic py-3">globalcrypto.com/user/<%= user.username %> </h6>
+                    <input type="text" id="refer_id" value="globalcrypto.com/user/<%= user.username %> " hidden>
+                    <script>
+                        function myFunction() {
+                            var copyText = document.getElementById("refer_id");
+                            console.log(copyText.value)
+                            var copyBtn = document.getElementById("copyBtn");
+                            copyText.select();
+                            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+                            navigator.clipboard.writeText(copyText.value);
+                            copyBtn.classList.add("bg-success")
+                            copyBtn.innerText = "coppied"
+                        }
+                    </script>
+                    <center><Button class="btn btn-primary mb-4" id="copyBtn" onclick="myFunction()">Copy</Button></center>
+                </div>
+            </div>
+    </div>
+    </div>
+    <%- include('../user_partials/footer.ejs') %>

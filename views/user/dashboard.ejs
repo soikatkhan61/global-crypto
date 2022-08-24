@@ -1,9 +1,5 @@
 <%- include('./user_partials/header.ejs') %>
 
-
-
-
-
     <div class="main-content">
         <div class="row" style="color: white;">
             <div class="col-3 col-md-6 col-sm-12">
@@ -167,134 +163,35 @@
                 <!-- ORDERS TABLE -->
                 <div class="box">
                     <div class="box-header">
-                        Recent orders
+                        Recent Joined Users
                     </div>
+                   <% if(recentUser.length == 0){ %> 
+                   <div class="py-3">
+                    <h4>No users join yet to your account! Spread your link!</h4>
+                    <a class="btn btn-primary" href="/user/my-refer-link">Your Refer Link</a>
+                   </div>
+                   <% }else{ %> 
                     <div class="box-body overflow-scroll">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Customer</th>
-                                    <th>Date</th>
-                                    <th>Order status</th>
-                                    <th>Payment status</th>
-                                    <th>Total</th>
+                                    <th>username</th>
+                                    <th>Joined On</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>#2345</td>
-                                    <td>
-                                        <div class="order-owner">
-                                            <img src="/images/user-image.jpg" alt="user image">
-                                            <span>tuat tran anh</span>
-                                        </div>
-                                    </td>
-                                    <td>2021-05-09</td>
-                                    <td>
-                                        <span class="order-status order-ready">
-                                            Ready
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="payment-status payment-pending">
-                                            <div class="dot"></div>
-                                            <span>Pending</span>
-                                        </div>
-                                    </td>
-                                    <td>$123.45</td>
-                                </tr>
-                                <tr>
-                                    <td>#2345</td>
-                                    <td>
-                                        <div class="order-owner">
-                                            <img src="/images/user-image-2.png" alt="user image">
-                                            <span>John doe</span>
-                                        </div>
-                                    </td>
-                                    <td>2021-05-09</td>
-                                    <td>
-                                        <span class="order-status order-shipped">
-                                            Shipped
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="payment-status payment-paid">
-                                            <div class="dot"></div>
-                                            <span>Paid</span>
-                                        </div>
-                                    </td>
-                                    <td>$123.45</td>
-                                </tr>
-                                <tr>
-                                    <td>#2345</td>
-                                    <td>
-                                        <div class="order-owner">
-                                            <img src="/images/user-image-3.png" alt="user image">
-                                            <span>evelyn</span>
-                                        </div>
-                                    </td>
-                                    <td>2021-05-09</td>
-                                    <td>
-                                        <span class="order-status order-shipped">
-                                            Shipped
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="payment-status payment-paid">
-                                            <div class="dot"></div>
-                                            <span>Paid</span>
-                                        </div>
-                                    </td>
-                                    <td>$123.45</td>
-                                </tr>
-                                <tr>
-                                    <td>#2345</td>
-                                    <td>
-                                        <div class="order-owner">
-                                            <img src="/images/user-image-2.png" alt="user image">
-                                            <span>John doe</span>
-                                        </div>
-                                    </td>
-                                    <td>2021-05-09</td>
-                                    <td>
-                                        <span class="order-status order-shipped">
-                                            Shipped
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="payment-status payment-paid">
-                                            <div class="dot"></div>
-                                            <span>Paid</span>
-                                        </div>
-                                    </td>
-                                    <td>$123.45</td>
-                                </tr>
-                                <tr>
-                                    <td>#2345</td>
-                                    <td>
-                                        <div class="order-owner">
-                                            <img src="/images/user-image-3.png" alt="user image">
-                                            <span>evelyn</span>
-                                        </div>
-                                    </td>
-                                    <td>2021-05-09</td>
-                                    <td>
-                                        <span class="order-status order-shipped">
-                                            Shipped
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="payment-status payment-paid">
-                                            <div class="dot"></div>
-                                            <span>Paid</span>
-                                        </div>
-                                    </td>
-                                    <td>$123.45</td>
-                                </tr>
+                                <% for (let r of recentUser){ %> 
+                                    <tr>
+                                        <td><a class="btn-link" href="/profile/<%= r.username %> "><%= r.username %> </a></td>
+                                        <td>
+                                           <%= r.createdAt.toDateString() %> 
+                                        </td>
+                                    </tr>
+                                <% }%> 
                             </tbody>
                         </table>
                     </div>
+                   <% } %> 
                 </div>
                 <!-- END ORDERS TABLE -->
             </div>

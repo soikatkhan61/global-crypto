@@ -10,7 +10,7 @@
         <% }else{%>
             <div class="p-4" style="background-color: #fff;">
                 <h4 class="text-center text-success fw-bold">Congratulations <%= user.username %>  !!</h4>
-                <h5 class="text-center">You are registered for : <span class="fw-bold text-primary"><%= pkg[0].package_name %></span></span></h5>
+                <h5 class="text-center">You are registered for : <span class="fw-bold text-primary"><a href="/packages"><%= pkg[0].package_name %></a></span></span></h5>
                 <hr>
                 <div>
                     <p>Registered: <span class="fw-bold fst-italic"><%= pkg[0].createdAt.toDateString() %> </span></p>

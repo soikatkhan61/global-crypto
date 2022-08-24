@@ -18,7 +18,7 @@
                     <tbody>
                      <% for(let data of searchData ){%> 
                         <tr>
-                            <td><%= data.username %> </td>
+                            <td><a href="/profile/<%= data.username %>"><%= data.username %></a></td>
                             <td><%= data.createdAt.toDateString() %> </td>
                           </tr>
                      <% }%> 

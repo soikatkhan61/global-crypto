@@ -1,0 +1,28 @@
+<%- include('../../partials/header/authHead.ejs') %>
+
+    <div class="container-fluid">
+        <div class="container py-5">
+                <h3 class="text-center">One More Step!
+                </h3> 
+                <div  class=" w-100 p-4 d-flex justify-content-center pb-4">
+                    <form action="/auth/verify" method="post"  id="verify_box" >
+                        <input id="email" name="email" type="text" value="<%= email %>" hidden>
+                        <!-- Name input -->
+                        <div class="form-outline mb-4">
+                            <input name="verify_id" type="text" id="code" class="form-control" required/>
+                            <label class="form-label" for="form4Example1">4 digit code</label>
+                        </div>
+    
+                        <!-- Submit button -->
+                        <button id="submitBtn" class="btn btn-success btn-block mb-4">Verify</button>
+                    </form>
+                </div>
+        </div>
+    </div>
+
+
+    <%- include('../../partials/footer.ejs') %>
+
+        </body>
+
+        </html>

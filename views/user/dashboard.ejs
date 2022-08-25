@@ -11,7 +11,7 @@
                         </div>
                         <div class="counter-info">
                             <div class="counter-count">
-                                <%= user.balance ? user.balance : '0' %> TK
+                                $<%= user.balance ? user.balance : '0' %>
                             </div>
                             <i class='bx bx-shopping-bag'></i>
                         </div>
@@ -28,7 +28,7 @@
                         </div>
                         <div class="counter-info">
                             <div class="counter-count">
-                                <%= user.pending_balance ? user.pending_balance : '1000' %> TK
+                                $<%= user.pending_balance ? user.pending_balance : '1000' %>
                             </div>
                             <i class='bx bx-chat'></i>
                         </div>
@@ -72,93 +72,52 @@
             </div>
         </div>
 
+        <div>
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="card border border-dark mb-3 h-100">
+                        <div class="card-header">User Infromation</div>
+                        <div class="card-body text-dark">
+                          <h5 class="card-title">Username: <%= user.username %> </h5>
+                          <p class="card-text mb-0">Email: <span class="fst-italic"><%= user.email %></span> </p>
+                          <p class="card-text mb-0">Registered: <span class="fst-italic"><%= user.createdAt.toDateString() %></span> </p>
+                          <p class="card-text mb-0">Balance: <span class="fst-italic">$<%= user.balance %> </span> </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="card border border-success shadow-0 mb-3 h-100">
+                        <div class="card-header text-success">Task</div>
+                        <div class="card-body text-success">
+                          <h5 class="card-title">Complete Task</h5>
+                          <a href="/task" class="card-text btn-link">Click To Complete task and earn money!</a>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="card border border-secondary shadow-0 mb-3 h-100">
+                        <div class="card-header">Withdraw</div>
+                        <div class="card-body text-secondary">
+                          <h5 class="card-title">Earn Money And Withdraw It</h5>
+                          <a href="/user/withdraw" class="card-text btn-link">Click to Withdraw Money!</a>
+                          <a href="/user/withdraw/history" class="card-text btn-link">Click to see your withdraw hitory</a>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="card border border-warning shadow-0 mb-3 h-100">
+                        <div class="card-header">Refer Income</div>
+                        <div class="card-body text-dark">
+                          <h5 class="card-title">Earn by joining your firends !</h5>
+                          <a href="/user/get-refered" class="card-text btn-link">Click to Refer Friend!</a>
+                          
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
-            <div class="col-3 col-md-6 col-sm-12">
-                <!-- TOP PRODUCT -->
-                <div class="box f-height">
-                    <div class="box-header">
-                        Top Users
-                    </div>
-                    <div class="box-body">
-                        <ul class="product-list">
-                            <li class="product-list-item">
-                                <div class="item-info">
-                                    <img src="/images/thumb-7.jpg" alt="product image">
-                                    <div class="item-name">
-                                        <div class="product-name">John Doe</div>
-                                        <div class="text-second">level 1</div>
-                                    </div>
-                                </div>
-                                <div class="item-sale-info">
-                                    <div class="text-second">Profit</div>
-                                    <div class="product-sales">$5,930</div>
-                                </div>
-                            </li>
-                            <li class="product-list-item">
-                                <div class="item-info">
-                                    <img src="/images/sneaker.jpg" alt="product image">
-                                    <div class="item-name">
-                                        <div class="product-name">John Doe</div>
-                                        <div class="text-second">level 4</div>
-                                    </div>
-                                </div>
-                                <div class="item-sale-info">
-                                    <div class="text-second">Profit</div>
-                                    <div class="product-sales">$5,930</div>
-                                </div>
-                            </li>
-                            <li class="product-list-item">
-                                <div class="item-info">
-                                    <img src="/images/headphone.jpg" alt="product image">
-                                    <div class="item-name">
-                                        <div class="product-name">John Bob</div>
-                                        <div class="text-second">level 2</div>
-                                    </div>
-                                </div>
-                                <div class="item-sale-info">
-                                    <div class="text-second">Profit</div>
-                                    <div class="product-sales">$5,930</div>
-                                </div>
-                            </li>
-                            <li class="product-list-item">
-                                <div class="item-info">
-                                    <img src="/images/backpack.jpg" alt="product image">
-                                    <div class="item-name">
-                                        <div class="product-name">Michel</div>
-                                        <div class="text-second">level 1</div>
-                                    </div>
-                                </div>
-                                <div class="item-sale-info">
-                                    <div class="text-second">Profit</div>
-                                    <div class="product-sales">$5,930</div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- TOP PRODUCT -->
-            </div>
-            <div class="col-4 col-md-6 col-sm-12">
-                <!-- CATEGORY CHART -->
-                <div class="box f-height">
-                    <div class="box-body">
-                        <div id="category-chart"></div>
-                    </div>
-                </div>
-                <!-- END CATEGORY CHART -->
-            </div>
-            <div class="col-5 col-md-12 col-sm-12">
-                <!-- CUSTOMERS CHART -->
-                <div class="box f-height">
-                    <div class="box-header">
-                        customers
-                    </div>
-                    <div class="box-body">
-                        <div id="customer-chart"></div>
-                    </div>
-                </div>
-                <!-- END CUSTOMERS CHART -->
-            </div>
             <div class="col-12">
                 <!-- ORDERS TABLE -->
                 <div class="box">

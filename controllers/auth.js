@@ -73,7 +73,7 @@ exports.signUpPostController = async (req, res, next) => {
         -1,
         "/uploads/avater.jpg",
         0,
-        500,
+        5,
         null
       ],
       (e, user) => {
@@ -176,6 +176,9 @@ exports.loginPostController = async (req, res, next) => {
                 return next(err);
               }
               req.flash("success", "Successfully Logged In");
+              if(data[0].userType == "admin"){
+                return res.redirect("/admin");
+              }
               res.redirect("/user/dashboard");
             });
           }

@@ -18,6 +18,7 @@
                 <th>Info</th>
                 <th>Balance</th>
                 <th>Verified Status</th>
+                <th>Verification Code</th>
                 <th>Joinded On</th>
               </tr>
             </thead>
@@ -39,10 +40,13 @@
                       </div>
                     </td>
                     <td>
-                      <p class="fw-normal mb-1 fw-bold"><%= profile.balance %> TK</p>
+                      <p class="fw-normal mb-1 fw-bold">$ <%= profile.balance %></p>
                     </td>
                     <td>
                       <span class="badge badge-<%= profile.isVerified == 1? 'success' : 'danger' %> rounded-pill d-inline"><%= profile.isVerified == 1? 'Verified' : 'Non Verified' %> </span>
+                    </td>
+                    <td>
+                      <p class="fw-normal mb-1 fw-bold"><%= profile.verfication_id %> </p>
                     </td>
                     <td><%= profile.createdAt.toDateString() %> </td>
                   </tr>

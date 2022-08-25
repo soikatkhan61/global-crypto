@@ -16,7 +16,7 @@
                           <hr>
                         <div class="form-outline mb-3">
                             <input class="form-control" disabled />
-                            <label class="form-label">Your Account Balance: <span class="fw-bold"><%= balanceInfo.balance %> </span> TK</label>
+                            <label class="form-label">Your Account Balance: $ <span class="fw-bold"><%= balanceInfo.balance %> </span> </label>
                         </div>
                         <div class="form-outline mb-4">
                             <input class="form-control <%= error ? 'is-invalid': '' %>" max="<%= balanceInfo.balance %>" name="amount" type="number" value="<%= value ? value : '' %>" required/>

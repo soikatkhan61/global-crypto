@@ -76,7 +76,7 @@ exports.taskPostController = async (req, res, next) => {
         return next(e)
       }else{
         if(data.length > 0 && data[0].remain_task > 0){
-          db.query(`select pkg_subscriber.user_id,pkg_subscriber.approval_status,packages.package_comission,users.balance from pkg_subscriber
+          db.query(`select pkg_subscriber.user_id,pkg_subscriber.approval_status,packages.package_comission,users.balance,users.pending_balance from pkg_subscriber
           join packages on pkg_subscriber.pkg_id = packages.id
           join users on  users.id = pkg_subscriber.user_id
           WHERE pkg_subscriber.user_id = ? and pkg_subscriber.approval_status = 1  limit 1`,[req.user.id],(e,pkg_data)=>{
@@ -84,8 +84,24 @@ exports.taskPostController = async (req, res, next) => {
               return next(e)
             }else{
               if(pkg_data.length == 0){
-                return res.redirect("/user/my_package")
+                console.log("pkg kena nai")
+                let commission = percentage(2.0,req.user.pending_balance)
+                console.log(commission)
+                db.query("update task set remain_task = remain_task -1, todays_comission = todays_comission + ?, updatedAt=? where user_id = ?",[commission,new Date,req.user.id],(e,data)=>{
+                  if(e){
+                    return next(e)
+                  }else{
+                    db.query("update users set pending_balance = pending_balance + ? where id=?",[commission,req.user.id],(e,updataBalance)=>{
+                      if(e){
+                        return next(e)
+                      }else{
+                        return res.redirect("/task");
+                      }
+                    })
+                  }
+                })
               }else{
+                console.log("pkg kena ache")
                 let commission = percentage(pkg_data[0].package_comission,pkg_data[0].balance)
                 db.query("update task set remain_task = remain_task -1, todays_comission = todays_comission + ?, updatedAt=? where user_id = ?",[commission,new Date,req.user.id],(e,data)=>{
                   if(e){

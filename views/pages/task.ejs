@@ -39,25 +39,29 @@
                         <hr>
 
                         <div>
-                            
-                           <h2 class="text-center text-success">Balance: <span class="fw-bold"><%= task[0].balance %> </span> tk</h2>
+                            <div class="d-flex justify-content-evenly"> 
+                                <h4 class="text-center text-success">Balance: $<span class="fw-bold"><%= task[0].balance %> </span></h4>
+                                <h4 class="text-center text-danger mx-2">Pending Balance: $<span class="fw-bold"><%= user.pending_balance %> </span></h4>
+                            </div>
+                           
+
                            <div class="d-md-flex py-3 text-light">
                             <div class="card my-2 px-3 py-2 bg-success mx-1" style="width: 100%;">
                                 <div class="card-header text-center"> Todays Earning</div>
                                 <div class="card-body">
-                                    <h4 class="text-center"><%= task[0].todays_comission %> TK</h4>
+                                    <h4 class="text-center">$<%= task[0].todays_comission %></h4>
                                 </div>
                             </div>
                             <div class="card my-2 px-3 py-2 bg-primary mx-1" style="width: 100%;">
                                 <div class="card-header text-center"> Yesterday Earning</div>
                                 <div class="card-body">
-                                    <h4 class="text-center"><%= task[0].yesterday %> TK</h4>
+                                    <h4 class="text-center">$<%= task[0].yesterday %></h4>
                                 </div>
                             </div>
                             <div class="card my-2 px-3 py-2 bg-secondary mx-1" style="width: 100%;">
-                                <div class="card-header text-center"> Todays Commissions</div>
+                                <div class="card-header text-center">Pending Balance</div>
                                 <div class="card-body">
-                                    <h4 class="text-center">846 TK</h4>
+                                    <h4 class="text-center">$ <%= user.pending_balance %></h4>
                                 </div>
                             </div>
                            </div>

@@ -7,7 +7,7 @@ const {
 } = require('../middleware/authMiddleware')
 
 const {adminDashboardGetController,packageAnalysticGetController} = require('../controllers/admin/adminController')
-const {adminPackageGetController,packageEditGetController,packageEditPostController,pkgApproveGet,pkgApprovPostConrtoller,viewUplineGetController} = require("../controllers/admin/adminPackageController")
+const {adminPackageGetController,packageEditGetController,packageEditPostController,pkgApproveGet,pkgApprovPostConrtoller,viewUplineGetController,giveComission,backComission,pkgApproved} = require("../controllers/admin/adminPackageController")
 
 const {renderWithdrawRequest,withdrawApproveController} = require("../controllers/admin/withdraw/withdrawController")
 
@@ -21,9 +21,13 @@ router.get("/packages/edit-package",isAuthenticated,checkAdmin,packageEditGetCon
 router.post("/packages/edit-package",isAuthenticated,checkAdmin,packageEditPostController)
 
 
-router.get("/packages/approve/:payment_id",isAuthenticated,checkAdmin,pkgApprovPostConrtoller)
+//router.get("/packages/approve/:payment_id",isAuthenticated,checkAdmin,pkgApprovPostConrtoller)
 router.get("/packages/view-up-line",isAuthenticated,checkAdmin,viewUplineGetController)
+router.get("/approve-pkg",isAuthenticated,checkAdmin,pkgApproved)
 router.get("/packages/approve",isAuthenticated,checkAdmin,pkgApproveGet)
+
+router.get("/give-comission",isAuthenticated,checkAdmin,giveComission)
+router.get("/back-comission",isAuthenticated,checkAdmin,backComission)
 
 router.get("/search-user-profile",isAuthenticated,checkAdmin,profileSearchAndGetController)
 

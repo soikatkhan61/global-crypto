@@ -1,5 +1,5 @@
 <%- include('../../partials/header.ejs')  %>
-<div class="container-fluid py-3">      
+<div class="container-fluid py-3" style="background-color: #eee; min-height:90vh">      
     <div class="container py-5">
         <div class="bg-primary py-3 mb-5">
             <h5 class="text-center text-light mb-0">Username: Soikat, Buying Package: Silver, Price: 30000 TK</h5>
@@ -11,13 +11,16 @@
                 <div class="p-3 bg-light shadow-sm border border-primary border-2 rounded">
                     <p class="text-center fw-bold">Level 1 Info</p>
                     <hr>
-                    <p>username: <span class="fst-italic"><a class="btn-link" href="/profile/admin"><%=level1[0].username %> </a></span></p>
+                    <p>username: <span class="fst-italic"><a class="btn-link" href="/profile/<%=level1[0].username %>"><%=level1[0].username %> </a></span></p>
                     <p>Verification Status: <span class="badge badge-<%= level1[0].isVerified == 1? 'success' : 'danger' %> rounded-pill d-inline"><%= level1[0].isVerified == 1? 'Verified' : 'Non Verified' %> </span>
                     </p>
-                    <p>Balance: <span class="fst-italic"><%=level1[0].balance %> </span> TK</p>
+                    <p>Balance: <span class="fst-italic">$ <%=level1[0].balance %> </span></p>
+                    <p class="bg-dark text-light rounded">Comission: <span class="fst-italic">$ <%= bonus.level1 %> </span></p>
                     <div>
-                        <button class="btn btn-sm btn-success">Give 500</button>
-                        <button class="btn btn-sm btn-danger">Back 500</button>
+                        <a href="/admin/give-comission?user_id=<%=level1[0].userID %>&payment_id=<%= bonus.payment_id %>&comission=<%= bonus.level1 %> " class="btn btn-sm btn-success">Give $<%= bonus.level1 %> </a>
+
+                        <a href="/admin/back-comission?user_id=<%=level1[0].userID %>&payment_id=<%= bonus.payment_id %>&comission=<%= bonus.level1 %> " class="btn btn-sm btn-danger">Back $<%= bonus.level1 %></a>
+                        
                     </div>
                 </div>
             </div>
@@ -27,13 +30,15 @@
                 <div class="p-3 bg-light shadow-sm border border-warning border-2 rounded">
                     <p class="text-center fw-bold">Level 2 Info</p>
                     <hr>
-                    <p>username: <span class="fst-italic"><a class="btn-link" href="/profile/admin"><%=level2[0].username %> </a></span></p>
+                    <p>username: <span class="fst-italic"><a class="btn-link" href="/profile/<%=level2[0].username %>"><%=level2[0].username %> </a></span></p>
                     <p>Verification Status: <span class="badge badge-<%= level2[0].isVerified == 1? 'success' : 'danger' %> rounded-pill d-inline"><%= level2[0].isVerified == 1? 'Verified' : 'Non Verified' %> </span>
                     </p>
-                    <p>Balance: <span class="fst-italic"><%=level2[0].balance %> </span> TK</p>
+                    <p>Balance: <span class="fst-italic">$ <%=level2[0].balance %> </span></p>
+                    <p class="bg-dark text-light rounded">Comission: <span class="fst-italic">$ <%= bonus.level2 %> </span></p>
                     <div>
-                        <button class="btn btn-sm btn-success">Give 500</button>
-                        <button class="btn btn-sm btn-danger">Back 500</button>
+                        <a href="/admin/give-comission?user_id=<%=level2[0].userID %>&payment_id=<%= bonus.payment_id %>&comission=<%= bonus.level2 %> " class="btn btn-sm btn-success">Give $<%= bonus.level2 %> </a>
+
+                        <a href="/admin/back-comission?user_id=<%=level2[0].userID %>&payment_id=<%= bonus.payment_id %>&comission=<%= bonus.level2 %> " class="btn btn-sm btn-danger">Back $<%= bonus.level2 %></a>
                     </div>
                 </div>
             </div>
@@ -44,17 +49,24 @@
                 <div class="p-3 bg-light shadow-sm border border-warning border-2 rounded">
                     <p class="text-center fw-bold">Level 3 Info</p>
                     <hr>
-                    <p>username: <span class="fst-italic"><a class="btn-link" href="/profile/admin"><%=level3[0].username %> </a></span></p>
+                    <p>username: <span class="fst-italic"><a class="btn-link" href="/profile/<%=level3[0].username %>"><%=level3[0].username %> </a></span></p>
                     <p>Verification Status: <span class="badge badge-<%= level3[0].isVerified == 1? 'success' : 'danger' %> rounded-pill d-inline"><%= level3[0].isVerified == 1? 'Verified' : 'Non Verified' %> </span>
                     </p>
-                    <p>Balance: <span class="fst-italic"><%=level3[0].balance %> </span> TK</p>
+                    <p>Balance: <span class="fst-italic">$<%=level3[0].balance %> </span></p>
+                    <p class="bg-dark text-light rounded">Comission: <span class="fst-italic">$ <%= bonus.level3 %> </span></p>
                     <div>
-                        <button class="btn btn-sm btn-success">Give 500</button>
-                        <button class="btn btn-sm btn-danger">Back 500</button>
+                        <a href="/admin/give-comission?user_id=<%=level3[0].userID %>&payment_id=<%= bonus.payment_id %>&comission=<%= bonus.level3 %> " class="btn btn-sm btn-success">Give $<%= bonus.level3 %> </a>
+
+                        <a href="/admin/back-comission?user_id=<%=level3[0].userID %>&payment_id=<%= bonus.payment_id %>&comission=<%= bonus.level3 %> " class="btn btn-sm btn-danger">Back $<%= bonus.level3 %></a>
                     </div>
                 </div>
             </div>
         <% } %> 
+      </div>
+      <div class="my-5 p-5 shadow-sm bg-light">
+        <p>Package Name: <span class="fw-bold"><%= bonus.pkg_info.package_name %></span> </p>
+        <p>Package Name: <span class="fw-bold">$<%= bonus.pkg_info.price %></span> </p>
+        <a href="/admin/approve-pkg?pkg_sub_id=<%= bonus.pkg_info.pkg_sub_id %> " class="btn btn-primary">Approve This request!</a>
       </div>
     </div>
 </div>

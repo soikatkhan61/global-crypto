@@ -7,8 +7,8 @@ CREATE TABLE IF NOT EXISTS users (
     isVerified int(1) DEFAULT 0,
     verfication_id int(8) DEFAULT -1,
     profilePics varchar(200) DEFAULT "/uploads/avater.jpg",
-    balance double(8,2) DEFAULT 500,
-    pending_balance double(8,2) DEFAULT 500,
+    balance double(8,2) DEFAULT 0,
+    pending_balance double(8,2) DEFAULT 5,
     createdAt TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
 );
 

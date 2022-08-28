@@ -1,0 +1,5 @@
+ 
+DB_NAME=cryptoworld_database
+DB_PASS=jahid@123jahid
+DB_USER=cryptoworld_jahid
+JWT_SECRET_KEY	jahid123

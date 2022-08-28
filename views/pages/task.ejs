@@ -4,7 +4,7 @@
         <div class="container py-5">
             <h3 class="text-primary text-center bg-white border py-3">Complete the task and earn <span class="text-danger">money !!</span></h3>
 
-            <div class="card">
+            <div class="shadow-sm bg-light">
                <% if(task.length==0){ %> 
 
                     <div class="card-body">
@@ -35,13 +35,13 @@
 
                     <div class="mt-4">
                         <hr>
-                        <h4 class="text-center">Your Dashboard (today)</h4>
+                        <h6 class="text-center">Your Dashboard (today)</h6>
                         <hr>
 
                         <div>
                             <div class="d-flex justify-content-evenly"> 
-                                <h4 class="text-center text-success">Balance: $<span class="fw-bold"><%= task[0].balance %> </span></h4>
-                                <h4 class="text-center text-danger mx-2">Pending Balance: $<span class="fw-bold"><%= user.pending_balance %> </span></h4>
+                                <h5 class="text-center text-success">Balance: $<span class="fw-bold"><%= task[0].balance %> </span></h5>
+                                <h5 class="text-center text-danger mx-2">Pending Balance: $<span class="fw-bold"><%= user.pending_balance %> </span></h5>
                             </div>
                            
 

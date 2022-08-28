@@ -19,7 +19,7 @@
                 <% for(let p of pkg){ %> 
                     <tr>
                         <td><%= p.package_name%></td>
-                        <td><%= p.price%> TK</td>
+                        <td>$<%= p.price%></td>
                         <td><%= p.package_comission%> %</td>
                         <td><%= p.total_subscriber%> </td>
                         <td><%= p.createdAt.toDateString() %></td>

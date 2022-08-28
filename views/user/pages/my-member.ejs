@@ -1,0 +1,41 @@
+<%- include('../user_partials/header.ejs') %>
+
+    <div class="container-fluid py-2" style="min-height: 100vh;background: #eee;">
+        <div class="container mt-4">
+            <div class="table-responsive">
+                <% if(member.length == 0){ %> 
+                    <div class="text-center">
+                        <p>No member join yet!</p>
+                        <p>Join People!</p>
+                        <a class="btn btn-primary" href="/user/my-refer-link">Your Refer Link</a>
+                    </div>
+                <% }else{ %> 
+                    <p class="text-center">See Upto 50 results of last joined</p>
+                    <div class="table-responsive">
+                        <table class="table  align-middle mb-0 bg-white">
+                            <thead class="bg-light table-dark">
+                              <tr>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Refererd On</th>
+                                <th>User Joined On</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                               <% for(let m of member.reverse()){ %> 
+                                <tr>
+                                    <td> <a class="btn-link" href="/profile/<%= m.username %>"><%= m.username %></a> </td>
+                                    <td> <%= m.email %> </td>
+                                    <td> <%= m.createdAt.toDateString() %> </td>
+                                    <td> <%= m.userCreatedAt.toDateString() %> </td>
+                                </tr>
+                               <% } %> 
+                            </tbody>
+                          </table>
+                    </div>
+                <% } %> 
+                
+            </div>
+        </div>
+    </div>
+    <%- include('../user_partials/footer.ejs') %>

@@ -75,3 +75,17 @@ exports.dashboardGetController = async (req,res,next) =>{
 exports.renderMyReferLink = (req,res,next) =>{
     res.render("user/pages/my-link",{title:'My refer link'})
 }
+
+exports.myMemberGetController = (req,res,next) =>{
+    try {
+        db.query("select mlm.user_id,mlm.createdAt,users.username,users.email,users.createdAt as userCreatedAt from mlm join users on users.id = mlm.user_id where ref_by_id = ? limit 50" ,[req.user.id],(e,data)=>{
+            if(e){
+                return next(e)
+            }else{
+                res.render("user/pages/my-member",{title:'My Member',member:data})
+            }
+        })
+    } catch (error) {
+        next(e)
+    }
+}

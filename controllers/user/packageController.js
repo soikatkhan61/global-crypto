@@ -130,14 +130,14 @@ exports.renderPkgPayment = async(req,res,next) =>{
 }
 
 exports.pkgPaymentPostContrller = async(req,res,next) =>{
-    let {pkg_id,pkg_sub_id,payment_method,payment_number,txid} = req.body
+    let {pkg_id,pkg_sub_id,payment_method,txid} = req.body
     try {
         db.query("select * from pkg_subscriber where  id=? and user_id=? and pkg_id=? ",[pkg_sub_id,req.user.id,pkg_id],(e,data)=>{
             if(e){
                 return next(e)
             }else{
                 if(data.length>0){
-                  db.query("insert into pkg_payment values(?,?,?,?,?,?,?,?,?)",[null,req.user.id,pkg_sub_id,pkg_id,payment_method,payment_number,txid,null,null],(e,insert)=>{
+                  db.query("insert into pkg_payment values(?,?,?,?,?,?,?,?)",[null,req.user.id,pkg_sub_id,pkg_id,payment_method,txid,null,null],(e,insert)=>{
                     if(e){
                       return next(e)
                     }else{

@@ -3,15 +3,14 @@
     <div class="container-fluid py-2" style="min-height: 100vh;background: #eee;">
         <div class="container mt-4">
             <div class="add-product-form d-md-flex justify-content-center p-2">
-                <div class="card p-4 shadow-sm">
+                <div class="bg-light p-4 shadow-sm">
                     <form action="/user/withdraw" method="post" class="py-2">
-                        <h4 class="mb-1 text-center">Withdraw Money!</h4>
+                        <h4 class="mb-1 text-center">Global Crypto Withdraw Money!</h4>
                         <hr>
                         <h4 class="text-center">We Accept</h4>
                         <div class="d-flex flex-column flex-md-row mb-3 justify-content-center">
-                            <div class="p-2 my-1 border text-center text-dark mx-1 border  rounded"><img src="/images/bkash.png" height="40" alt="bkash"></div>
-                            <div class="p-2 my-1 border text-center text-dark mx-1 border  rounded"><img src="/images/nagad.png" height="40" alt="bkash"></div>
-                            <div class="p-2 my-1 border text-center text-dark mx-1 border  rounded"><img src="/images/rocket.png" height="40" alt="bkash"></div>
+                            <div class="p-2 my-1 border text-center text-dark mx-1 border  rounded"><img src="/images/trc.png" height="80" alt="bkash"></div>
+                            <div class="p-2 my-1 border text-center text-dark mx-1 border  rounded"><img src="/images/payit.png" height="65" alt="bkash"></div>
                           </div>
                           <hr>
                         <div class="form-outline mb-3">
@@ -36,9 +35,8 @@
                             <select id="country" class="py-2 px-4 mb-3" onchange="update();"
                                 style="width: 100%; outline: black">
                                 <option class="py-2 px-5">Payment Method *</option>
-                                <option class="py-2 px-5" value="Bkash">Bkash</option>
-                                <option class="py-2 px-5" value="Nagad">Nagad</option>
-                                <option class="py-2 px-5" value="Rocket">Rocket</option>
+                                <option class="py-2 px-5" value="TRC20">TRC20</option>
+                                <option class="py-2 px-5" value="PayIT">PayIT</option>
                             </select>
                             <input id="result" name="payment_method" value="" class="d-none" required>
 

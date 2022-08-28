@@ -10,6 +10,7 @@
                         <th>Amount</th>
                         <th>Payment Mehthod</th>
                         <th>Payment Number</th>
+                        <th>Transaction ID</th>
                         <th>Status</th>
                         <th>Date</th>
                       </tr>
@@ -30,6 +31,7 @@
                                 <%= h.method %>
                             </td>
                             <td><%= h.number %></td>
+                            <td><span class="text-success fw-bold fst-italic"><%= h.tx_id %></span></td>
                             <td>
                                 <span class="badge badge-<%= h.statuss == "pending" ? "danger" : "success" %>   rounded-pill d-inline"><%= h.statuss %></span>
                             </td>

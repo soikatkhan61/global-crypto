@@ -1,0 +1,38 @@
+<%- include('../../partials/header.ejs') %>
+    <div class="container-fluid py-3">
+        <div class="container">
+            <% if(w_req.length==0){ %>
+                <h3 class="text-center">Invalid withdraw Request!</h3>
+
+                <%}else{ %>
+
+                <div class="d-flex pb-4 justify-content-center">
+                    <form action="/admin/withdraw-approve" method="post">
+                        <h4 class="mb-1 text-center">Global Crypto Withdraw Money!</h4>
+                        <hr>
+                        <div >
+                            <p class="mb-0">Amount:  <span class="fw-bold fst-bold"> $<%= w_req[0].amount %></span> </p>
+                            <p class="mb-0">Method:  <span class="fw-bold fst-bold"><%= w_req[0].method %></span> </p>
+                            <p class="mb-0">Payment Recieve ID: <span class="fw-bold fst-bold"><%= w_req[0].number %></span> </p>
+                            <p class="mb-0">Withdraw Status: <span class="fw-bold fst-bold"><%= w_req[0].statuss %></span> </p>
+                            <p >Reqest On: <span class="fw-bold fst-bold"><%= w_req[0].createdAt.toDateString() %></span> </p>
+                        </div>
+                        <!-- quantity input -->
+                        <div class="form-outline mb-3">
+                            <input type="text" name="p_id" value="<%= w_req[0].id %>" hidden>
+                            <input type="text" name="tx_id"  id="total_dollar" class="form-control" required />
+                            <label class="form-label" for="total_dollar">TxId Number *</label>
+                        </div>
+            
+                        <button type="submit" class="mt-2 btn btn-primary" style="width: 100%;">Send</button>
+                    </form>
+                </div>
+                
+
+                <% }%>
+        </div>
+    </div>
+    <%- include('../../partials/footer.ejs') %>
+        </body>
+
+        </html>

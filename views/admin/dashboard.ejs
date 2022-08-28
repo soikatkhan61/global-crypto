@@ -24,11 +24,11 @@
                     <!-- COUNTER -->
                     <div class="counter">
                         <div class="counter-title">
-                            Pending Balance
+                            Total Withdraw
                         </div>
                         <div class="counter-info">
                             <div class="counter-count">
-                                <%= user.pending_balance ? user.pending_balance : '1000' %> TK
+                                $<%= user.pending_balance ? user.pending_balance : '1000' %>
                             </div>
                             <i class='bx bx-chat'></i>
                         </div>
@@ -41,11 +41,11 @@
                     <!-- COUNTER -->
                     <div class="counter">
                         <div class="counter-title">
-                            Level 1
+                            Total Package Sell
                         </div>
                         <div class="counter-info">
                             <div class="counter-count">
-                                <%= user.refer_list ? user.refer_list.length : '0' %>
+                                <%= totalPkgSell[0].totalPkgSell %>
                             </div>
                             <i class='bx bx-line-chart'></i>
                         </div>
@@ -58,11 +58,11 @@
                     <!-- COUNTER -->
                     <div class="counter">
                         <div class="counter-title">
-                            Level 3
+                            Trafic
                         </div>
                         <div class="counter-info">
                             <div class="counter-count">
-                                5645
+                                45468
                             </div>
                             <i class='bx bx-user'></i>
                         </div>
@@ -131,7 +131,7 @@
                 <!-- ORDERS TABLE -->
                 <div class="box">
                     <div class="box-header">
-                        Recent orders
+                        Recent Joined Users
                     </div>
                     <% if(recentUser.length==0){ %> 
                         <p class="text-center">No users joined yet</p>

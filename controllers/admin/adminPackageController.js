@@ -89,7 +89,7 @@ exports.pkgApproveGet = async (req, res, next) => {
   try {
     db.query(
       `SELECT
-    users.id as userID, users.username, users.email, packages.package_name, packages.price, packages.package_comission,pkg_payment.id as  pkg_payment_id,pkg_payment.payment_method,pkg_payment.createdAt,pkg_subscriber.approval_status,pkg_subscriber.id as pkg_subb_id ,pkg_payment.payment_number,pkg_payment.transaction_number
+    users.id as userID, users.username, users.email, packages.package_name, packages.price, packages.package_comission,pkg_payment.id as  pkg_payment_id,pkg_payment.payment_method,pkg_payment.createdAt,pkg_subscriber.approval_status,pkg_subscriber.id as pkg_subb_id ,pkg_payment.transaction_number
   FROM packages
   
   JOIN pkg_payment
@@ -385,6 +385,7 @@ exports.viewUplineGetController = async (req, res, next) => {
                             res.render("admin/pages/package/view-up-line", {
                               level1,
                               level2: "",
+                              level3: "",
                               bonus
                             });
                           }
@@ -446,17 +447,24 @@ exports.backComission = async (req,res,next) =>{
 exports.pkgApproved = (req,res,next) =>{
   let pkg_sub_id = req.query.pkg_sub_id
   try {
-    db.query(
-      "update pkg_subscriber set approval_status=1 where id=? LIMIT 1",
-      [pkg_sub_id],
-      (e, data) => {
-        if (e) {
-          return next(e);
-        } else {
-          return res.redirect("/admin/packages/approve");
-        }
+    db.query("select pkg_id,approval_status from pkg_subscriber where id =? limit 1",[pkg_sub_id],(e,data)=>{
+      if(e){
+        return next(e)
+      }else{
+        db.query(
+          "update pkg_subscriber set approval_status = 1 where id=? LIMIT 1;update packages set total_subscriber = total_subscriber + 1 where id = ? ",
+          [pkg_sub_id,data[0].pkg_id],
+          (e, data) => {
+            if (e) {
+              return next(e);
+            } else {
+              return res.redirect("/admin/packages/approve");
+            }
+          }
+        );
       }
-    );
+    })
+    
   } catch (error) {
     next(error)
   }

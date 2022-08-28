@@ -32,7 +32,6 @@
                         <div class="ms-3">
                           <p class="fw-bold mb-1"><a class="btn-link" href="/profile/<%= p.username %>"><%= p.username %></a></p>
                           <p class="text-muted mb-0"><%= p.email %></p>
-                          <p class="text-muted mb-0"><%= p.email %></p>
                         </div>
                       </div>
                     </td>
@@ -40,14 +39,13 @@
                       <span class="badge badge-info rounded-pill d-inline"><%= p.user_id %></span>
                     </td>
                     <td>
-                      <p class="fw-normal mb-1"><%= p.amount %> TK</p>
+                      <p class="fw-normal mb-1">$<%= p.amount %></p>
                     </td>
                     <td><%= p.method %></td>
                     <td><%= p.number %></td>
                     <td><%= moment(p.createdAt) %></td>
                     <td>
-                        <a href="/admin/withdraw-approve/<%=p.id%>" class="btn btn-sm btn-success">Approve</a>
-                        <a class="btn btn-sm btn-danger">Delete</a>
+                        <a href="/admin/withdraw-request-view?payment_id=<%=p.id%>" class="btn btn-sm btn-primary">Send Transaction</a>
                     </td>
                   </tr>
                 <% }%> 

@@ -10,7 +10,7 @@
     <div class="sidebar-user">
         <div class="sidebar-user-info">
             <img src="/images/user-image.jpg" alt="User picture" class="profile-image">
-            <div class="sidebar-user-name">
+            <div class="sidebar-user-name" style="text-transform:lowercase;">
                 <%= user.username %> 
             </div>
         </div>
@@ -36,6 +36,12 @@
             <a href="/user/my_package">
                 <i class='bx bx-package'></i>
                 <span>My package</span>
+            </a>
+        </li> 
+        <li>
+            <a href="/user/my-member">
+                <i class='bx bxs-user-detail' ></i>
+                <span>My Member</span>
             </a>
         </li>
         <li>
@@ -65,7 +71,7 @@
         </li>
         <li>
             <a href="/user/get-refered" >
-                <i class='bx bx-link'></i>
+                <i class='bx bxs-user-plus'></i>
                 <span>Get referred</span>
             </a>
         </li>

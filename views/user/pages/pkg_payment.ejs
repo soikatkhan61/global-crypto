@@ -3,16 +3,21 @@
     <div class="container-fluid py-2" style="min-height: 100vh;background: #eee;">
         <div class="container mt-4">
             <div class="add-product-form d-md-flex justify-content-center p-2">
-                <div class="card p-4 shadow-sm">
+                <div class="bg-light p-4 shadow-sm">
                     <form action="/user/pay" method="post" class="py-2">
                         <h4 class="mb-1">Make payment and earn money!</h4>
+                       
+                        <h5 class="text-center text-success">We accept</h5>
                         <hr>
-                        <div class="py-3">
-                            <center><h5 class="fst-italic">Bkash: 018229336756</h5></center>
-                            <center><h5 class="fst-italic">Nagad: 0182293396763</h5></center>
-                            <center><h5 class="fst-italic">Rocket: 01822933943</h5></center>
+                        <div class="d-flex justify-content-center">
+                            <img src="/images/trc.png"   alt="trc" height="80">
+                            <img src="/images/paytm.png"  alt="trc" height="65">
                         </div>
                         <hr>
+                        <div class="text-center"> 
+                            <p class="mb-0">TRC: <span class="fst-italic">934-347348-378943</span></p>
+                            <p>PayTM: <span class="fst-italic">934-347348-378943</span></p>
+                        </div>
                         <div class="form-outline mb-3">
                             <input class="form-control" disabled />
                             <label class="form-label">Package: <%= pkg[0].package_name %></label>
@@ -39,18 +44,11 @@
                             <select id="country" class="py-2 px-4 mb-3" onchange="update();"
                                 style="width: 100%; outline: black">
                                 <option class="py-2 px-5">Payment Method *</option>
-                                <option class="py-2 px-5" value="Bkash">Bkash</option>
-                                <option class="py-2 px-5" value="Nagad">Nagad</option>
-                                <option class="py-2 px-5" value="Rocket">Rocket</option>
+                                <option class="py-2 px-5" value="trc">TRC20</option>
+                                <option class="py-2 px-5" value="payIT">PayIT</option>
                             </select>
                             <input id="result" name="payment_method" value="" class="d-none">
 
-                        </div>
-
-                        <!-- quantity input -->
-                        <div class="form-outline mb-3">
-                            <input type="text" name="payment_number"  id="total_dollar" class="form-control" required/>
-                            <label class="form-label" for="total_dollar">Payment Number *</label>
                         </div>
 
                         <div class="form-outline mb-3">

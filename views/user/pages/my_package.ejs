@@ -21,6 +21,11 @@
 
                     <% if(pkg_payment.length){ %> 
                         <hr>
+                        <% if(pkg[0].approval_status === 1){ %> 
+                            <h5 class="text-center text-success fw-bold">Payment Complete!</h5>
+                        <% }else{ %> 
+                            <h5 class="text-center text-warning fw-bold">Your Payment info is submitted! Wait for confirmation!</h5>
+                        <% } %> 
                         <h5 class="text-success py-2">Payment Information</h5>
                         <p>Payment Method: <span class="text-dark fst-italic"><%= pkg_payment[0].payment_method %> </span></p>
                         <p>Payment Number: <span class="text-dark fst-italic"><%= pkg_payment[0].payment_number %> </span></p>

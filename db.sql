@@ -51,8 +51,7 @@ CREATE TABLE IF NOT EXISTS pkg_payment(
     user_id int ,FOREIGN KEY(user_id) REFERENCES users(id),
     pkg_sub_id  int, FOREIGN KEY(pkg_sub_id) REFERENCES pkg_subscriber(id),
     pkg_id  int, FOREIGN KEY(pkg_id) REFERENCES packages(id),
-	payment_method ENUM("Bkash","Nagad","Rocket","Others"),
-    payment_number varchar(15) not null,
+	payment_method ENUM('TRC20','PayIT'),
     transaction_number varchar(50) not null,
     createdAt TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
     updatedAt TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
@@ -75,6 +74,7 @@ CREATE TABLE IF NOT EXISTS withdraw (
     amount int(6) not null,
     method varchar(20) not null,
     number varchar(20) not null,
+    tx_id varchar(100) DEFAULT null,
     statuss enum("paid","pending") DEFAULT "pending",
     updatedAt TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
     createdAt TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)

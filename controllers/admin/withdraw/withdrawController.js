@@ -1,36 +1,55 @@
 const db = require("../../../config/db.config")
 
 exports.renderWithdrawRequest = (req,res,next) =>{
-    db.query("select users.username,users.email,withdraw.* from withdraw join users on withdraw.user_id = users.id where statuss='pending';",(e,data)=>{
-        if(e){
-            return next(e)
-        }else{
-            res.render("admin/pages/withdraw/withdraw-request",{title:"Withdraw Request",history:data})
-        }
-    })    
+    try {
+        db.query("select users.username,users.email,withdraw.* from withdraw join users on withdraw.user_id = users.id where statuss='pending';",(e,data)=>{
+            if(e){
+                return next(e)
+            }else{
+                res.render("admin/pages/withdraw/withdraw-request",{title:"Withdraw Request",history:data})
+            }
+        }) 
+    } catch (error) {
+        next(error)
+    }
+       
 }
 
+exports.renderWithdrawForm = (req,res,next) =>{
+    let payment_id = req.query.payment_id
+    try {
+        db.query("select * from withdraw where id =? and statuss='pending'",[payment_id],(e,data)=>{
+            res.render("admin/pages/withdraw/withdrawApprove",{title:"Withdraw Approve",w_req:data})
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+ 
 exports.withdrawApproveController = (req,res,next) =>{
-    
-    let id = req.params.id
-    db.query("select * from withdraw where id =? and statuss='pending'",[id],(e,data)=>{
-        if(e){
-            return next(e)
-        }else{
-            console.log(data.length)
-            if(data.length>0){
-                db.query("update withdraw set statuss='paid' where id=?",[id],(e,data)=>{
-                    if(e){
-                        return next(e)
-                    }else{
-                        res.redirect("/admin/withdraw-request")
-                    }
-                })
+    let {p_id,tx_id} = req.body
+    try {
+        db.query("select * from withdraw where id =? and statuss='pending'",[p_id],(e,data)=>{
+            if(e){
+                return next(e)
             }else{
-                res.status(404).send("Request already approve or invalid withdraw request")
+                console.log(data.length)
+                if(data.length>0){
+                    db.query("update withdraw set statuss='paid',tx_id=? where id=?",[tx_id,p_id],(e,data)=>{
+                        if(e){
+                            return next(e)
+                        }else{
+                            res.redirect("/admin/withdraw-request")
+                        }
+                    })
+                }else{
+                    res.status(404).send("Request already approve or invalid withdraw request")
+                }
             }
-           
-        }
-    })   
+        }) 
+    } catch (error) {
+        next(error)
+    }
+     
 }
 

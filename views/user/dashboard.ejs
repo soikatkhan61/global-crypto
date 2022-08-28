@@ -2,7 +2,7 @@
 
     <div class="main-content">
         <div class="row" style="color: white;">
-            <div class="col-3 col-md-6 col-sm-12">
+            <div class="col-4 col-md-6 col-sm-12">
                 <div class="box box-hover" style="background-color: #28a745!important;" >
                     <!-- COUNTER -->
                     <div class="counter">
@@ -19,7 +19,7 @@
                     <!-- END COUNTER -->
                 </div>
             </div>
-            <div class="col-3 col-md-6 col-sm-12">
+            <div class="col-4 col-md-6 col-sm-12">
                 <div class="box box-hover" style="background-color: #dc3545!important;">
                     <!-- COUNTER -->
                     <div class="counter">
@@ -36,7 +36,7 @@
                     <!-- END COUNTER -->
                 </div>
             </div>
-            <div class="col-3 col-md-6 col-sm-12">
+            <div class="col-4 col-md-6 col-sm-12">
                 <div class="box box-hover" style="background-color: #17a2b8!important;">
                     <!-- COUNTER -->
                     <div class="counter">
@@ -53,64 +53,55 @@
                     <!-- END COUNTER -->
                 </div>
             </div>
-            <div class="col-3 col-md-6 col-sm-12">
-                <div class="box box-hover" style="background-color: #ffc107!important;">
-                    <!-- COUNTER -->
-                    <div class="counter">
-                        <div class="counter-title">
-                            Level 3
-                        </div>
-                        <div class="counter-info">
-                            <div class="counter-count">
-                                5645
-                            </div>
-                            <i class='bx bx-user'></i>
-                        </div>
-                    </div>
-                    <!-- END COUNTER -->
-                </div>
-            </div>
+
         </div>
 
         <div>
             <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-3">
                     <div class="card border border-dark mb-3 h-100">
-                        <div class="card-header">User Infromation</div>
+                        <div class="card-header border-dark text-center">User Infromation</div>
                         <div class="card-body text-dark">
                           <h5 class="card-title">Username: <%= user.username %> </h5>
                           <p class="card-text mb-0">Email: <span class="fst-italic"><%= user.email %></span> </p>
                           <p class="card-text mb-0">Registered: <span class="fst-italic"><%= user.createdAt.toDateString() %></span> </p>
                           <p class="card-text mb-0">Balance: <span class="fst-italic">$<%= user.balance %> </span> </p>
                         </div>
+                        <div class="card-footer bg-transparent border-dark d-flex justify-content-center"><a class="btn btn-dark" href="/profile/<%= user.username %>">visit profile</a></div>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-3">
                     <div class="card border border-success shadow-0 mb-3 h-100">
-                        <div class="card-header text-success">Task</div>
-                        <div class="card-body text-success">
+                        <div class="card-header border-success text-center">Task</div>
+                        <div class="card-body">
                           <h5 class="card-title">Complete Task</h5>
-                          <a href="/task" class="card-text btn-link">Click To Complete task and earn money!</a>
+                          <p>If you complete your daily task you can earn more money! this is very simple work, just grab the gifbox and complete the task</p>
                         </div>
+                        <div class="card-footer bg-transparent border-success d-flex justify-content-center"><a class="btn btn-success" href="/task">Complete Task</a></div>
                       </div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-3">
                     <div class="card border border-secondary shadow-0 mb-3 h-100">
-                        <div class="card-header">Withdraw</div>
-                        <div class="card-body text-secondary">
+                        <div class="card-header border-secondary  text-center">Withdraw</div>
+                        <div class="card-body">
                           <h5 class="card-title">Earn Money And Withdraw It</h5>
-                          <a href="/user/withdraw" class="card-text btn-link">Click to Withdraw Money!</a>
-                          <a href="/user/withdraw/history" class="card-text btn-link">Click to see your withdraw hitory</a>
+                          <p>Withdraw is very simple! just to go <a class="btn-link" href="/user/withdraw">withdraw</a> option, fill the form and withdraw !</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-secondary d-flex justify-content-center">
+                            <a href="/user/withdraw" class="btn btn-secondary mx-1">Withdraw</a>
+                            <a href="/user/withdraw/history" class="btn btn-secondary mx-1">hitory</a>
                         </div>
                       </div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-3">
                     <div class="card border border-warning shadow-0 mb-3 h-100">
-                        <div class="card-header">Refer Income</div>
+                        <div class="card-header border-warning text-center">Refer Income</div>
                         <div class="card-body text-dark">
                           <h5 class="card-title">Earn by joining your firends !</h5>
-                          <a href="/user/get-refered" class="card-text btn-link">Click to Refer Friend!</a>
-                          
+                            <p>You can earn one more way! Just join member in our platform,and get revenue! </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-warning d-flex justify-content-center">
+                            <a href="/user/my-refer-link" class="btn btn-warning">Your link</a>
                         </div>
                       </div>
                 </div>

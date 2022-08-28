@@ -34,7 +34,7 @@ exports.withdrawPostController = (req,res,next) =>{
                                         return next(e)
                                     }else{
                                         if(data.changedRows == 1){
-                                            db.query("insert into withdraw values (?,?,?,?,?,?,?,?)",[null,req.user.id,amount,payment_method,payment_number,"pending",null,null], function(err, results) {
+                                            db.query("insert into withdraw values (?,?,?,?,?,?,?,?,?)",[null,req.user.id,amount,payment_method,payment_number,null,"pending",null,null], function(err, results) {
                                                 if(err){
                                                     return next(err)
                                                 }else{

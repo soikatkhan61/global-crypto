@@ -9,7 +9,7 @@ const {
 const {adminDashboardGetController,packageAnalysticGetController} = require('../controllers/admin/adminController')
 const {adminPackageGetController,packageEditGetController,packageEditPostController,pkgApproveGet,pkgApprovPostConrtoller,viewUplineGetController,giveComission,backComission,pkgApproved} = require("../controllers/admin/adminPackageController")
 
-const {renderWithdrawRequest,withdrawApproveController,renderWithdrawForm} = require("../controllers/admin/withdraw/withdrawController")
+const {renderWithdrawRequest,withdrawApproveController,renderWithdrawForm,renderUserWithdrawHistory} = require("../controllers/admin/withdraw/withdrawController")
 
 const {profileSearchAndGetController} = require("../controllers/admin/user-profile/userProfileAnalysticController")
 
@@ -35,6 +35,8 @@ router.get("/search-user-profile",isAuthenticated,checkAdmin,profileSearchAndGet
 router.get("/withdraw-request",isAuthenticated,checkAdmin,renderWithdrawRequest)
 router.get("/withdraw-request-view",isAuthenticated,checkAdmin,renderWithdrawForm)
 router.post("/withdraw-approve",isAuthenticated,checkAdmin,withdrawApproveController)
+
+router.get("/user-withdraw",isAuthenticated,checkAdmin,renderUserWithdrawHistory)
 
 router.get("/",isAuthenticated,checkAdmin,adminDashboardGetController)
 

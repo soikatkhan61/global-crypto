@@ -91,7 +91,7 @@ exports.taskPostController = async (req, res, next) => {
                   if(e){
                     return next(e)
                   }else{
-                    db.query("update users set pending_balance = pending_balance + ? where id=?",[commission,req.user.id],(e,updataBalance)=>{
+                    db.query("update users set balance = balance + ? where id=?",[commission,req.user.id],(e,updataBalance)=>{
                       if(e){
                         return next(e)
                       }else{

@@ -2,7 +2,7 @@ const db = require("../../../config/db.config")
 
 exports.renderWithdrawRequest = (req,res,next) =>{
     try {
-        db.query("select users.username,users.email,withdraw.* from withdraw join users on withdraw.user_id = users.id where statuss='pending';",(e,data)=>{
+        db.query("select users.id,users.username,users.email,withdraw.* from withdraw join users on withdraw.user_id = users.id where statuss='pending';",(e,data)=>{
             if(e){
                 return next(e)
             }else{
@@ -44,6 +44,26 @@ exports.withdrawApproveController = (req,res,next) =>{
                     })
                 }else{
                     res.status(404).send("Request already approve or invalid withdraw request")
+                }
+            }
+        }) 
+    } catch (error) {
+        next(error)
+    }
+     
+}
+
+exports.renderUserWithdrawHistory = (req,res,next) =>{
+    let id = req.query.id
+    try {
+        db.query("select * from withdraw where user_id =?  order by id desc LIMIT 20",[id],(e,data)=>{
+            if(e){
+                return next(e)
+            }else{
+                if(data){
+                   res.render('admin/pages/withdraw/user-withdraw-history',{data})
+                }else{
+                    res.status(404).send("No withdraw is complete from this id")
                 }
             }
         }) 

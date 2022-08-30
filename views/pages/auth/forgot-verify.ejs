@@ -1,0 +1,34 @@
+<%- include('../../partials/header/authHead.ejs') %>
+
+    <div class="container-fluid">
+        <div class="container py-5">
+                <h3 class="text-center text-light">Enter the verification code and recoever your account! 
+                </h3> 
+                <p class="text-center text-light">You need to verify your email adress!</p>
+                <p class="text-center fw-bold text-light"><%= email %></p>
+                <center> <a href="/auth/send-verification-code/<%= email %>?forgot=true" class="btn btn-primary">Send Me Code</a></center>
+                
+                <div  class=" w-100 p-5 d-flex justify-content-center pb-4">
+                  
+                    <form action="/auth/verify?forgot=true" method="post"  id="verify_box" >
+                        <p>If you already get the code just enter here and recover!</p>
+                        <input id="email" name="email" type="text" value="<%= email %>" hidden>
+                        <!-- Name input -->
+                        <div class="input-group mb-4">
+                            
+                            <input id="pass" type="text" name="verify_id" class="form-control input_pass" placeholder="Enter 4 digit code" required>
+                        </div>
+    
+                        <!-- Submit button -->
+                        <button id="submitBtn" class="btn btn-success btn-block mb-4">Verify</button>
+                    </form>
+                </div>
+        </div>
+    </div>
+
+
+    <%- include('../../partials/footer.ejs') %>
+
+        </body>
+
+        </html>

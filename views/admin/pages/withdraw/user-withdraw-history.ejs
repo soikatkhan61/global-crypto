@@ -1,0 +1,47 @@
+<%- include('../../partials/header.ejs')  %>
+<div class="container-fluid py-3">      
+    <div>
+      <% if(data.length == 0){ %> 
+        <h3 class="text-center">No withdraw request found yet!</h3>
+      <% }else{ %> 
+        <h3 class="text-center text-danger py-2"> Last 20 withdraw form this account!  </h3>
+        <div class="table-responsive">
+          <table class="table align-middle mb-0 bg-white">
+              <thead class="bg-light table-dark">
+                <tr>
+                  <th>Withdraw id</th>
+                  <th>User ID</th>
+                  <th>Amount</th>
+                  <th>Payment Number</th>
+                  <th>Payment Method</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody class="table-hover">
+                <% for(let p of data){ %> 
+                  <tr>
+                    <td>
+                      <p><%= p.id %></p>
+                    </td>
+                    <td>
+                      <span><%= p.user_id %></span>
+                    </td>
+                    <td>
+                      <p class="fw-normal mb-1">$<%= p.amount %></p>
+                    </td>
+                    <td><%= p.method %></td>
+                    <td><%= p.number %></td> 
+                    <td> <span class="badge badge-<%= p.statuss == 'paid' ? 'success' : 'warning' %>  rounded-pill d-inline"><%= p.statuss %></span></td>
+                    <td><%= moment(p.createdAt) %></td>
+                  </tr>
+                <% }%> 
+              </tbody>
+            </table>
+      </div>
+      <% }%> 
+    </div>
+</div>
+<%- include('../../partials/footer.ejs')  %>
+</body>
+</html>

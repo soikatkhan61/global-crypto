@@ -326,78 +326,89 @@ exports.viewUplineGetController = async (req, res, next) => {
           return next(e);
         } else {
           if (payment_info.length > 0) {
-                //calculate the bonus
+            db.query("select id,username,balance,isVerified from users where id = ?",[payment_info[0].user_id],(e,pkg_buyer)=>{
+              if(e){
+                return next(e)
+              }else{
+                if(pkg_buyer.length>0){
+                  //calculate the bonus
                 let bonus = {
-                  level1: percentage(15,payment_info[0].price),
+                  level1: percentage(10,payment_info[0].price),
                   level2: percentage(6,payment_info[0].price),
                   level3: percentage(3,payment_info[0].price),
                   payment_id:req.query.payment_id,
                   pkg_info : payment_info[0],
+                  pkg_buyer
                 }
-            db.query(
-              "select user_id,ref_by_id,users.id as userID,users.username,users.balance,users.isVerified from mlm join users on mlm.ref_by_id = users.id where user_id=?",
-              [payment_info[0].user_id],
-              (e, level1) => {
-                if (e) {
-                  return next(e);
-                } else {
-                  if (level1.length > 0) {
-                    db.query(
-                      "select user_id,ref_by_id,users.id as userID,users.username,users.balance,users.isVerified from mlm join users on mlm.ref_by_id = users.id where user_id=?",
-                      [level1[0].ref_by_id],
-                      (e, level2) => {
-                        if (e) {
-                          return next(e);
-                        } else {
-                          if (level2.length > 0) {
-                            db.query(
-                              "select user_id,ref_by_id,users.id as userID,users.username,users.balance,users.isVerified from mlm join users on mlm.ref_by_id = users.id where user_id=?",
-                              [level2[0].ref_by_id],
-                              (e, level3) => {
-                                if (e) {
-                                  return next(e);
+                  db.query(
+                    "select user_id,ref_by_id,users.id as userID,users.username,users.balance,users.isVerified from mlm join users on mlm.ref_by_id = users.id where user_id=?",
+                    [payment_info[0].user_id],
+                    (e, level1) => {
+                      if (e) {
+                        return next(e);
+                      } else {
+                        if (level1.length > 0) {
+                          db.query(
+                            "select user_id,ref_by_id,users.id as userID,users.username,users.balance,users.isVerified from mlm join users on mlm.ref_by_id = users.id where user_id=?",
+                            [level1[0].ref_by_id],
+                            (e, level2) => {
+                              if (e) {
+                                return next(e);
+                              } else {
+                                if (level2.length > 0) {
+                                  db.query(
+                                    "select user_id,ref_by_id,users.id as userID,users.username,users.balance,users.isVerified from mlm join users on mlm.ref_by_id = users.id where user_id=?",
+                                    [level2[0].ref_by_id],
+                                    (e, level3) => {
+                                      if (e) {
+                                        return next(e);
+                                      } else {
+                                        if (level3.length > 0) {
+                                          res.render(
+                                            "admin/pages/package/view-up-line",
+                                            {
+                                              level1,
+                                              level2,
+                                              level3,
+                                              bonus
+                                            }
+                                          );
+                                        } else {
+                                          res.render(
+                                            "admin/pages/package/view-up-line",
+                                            {
+                                              level1,
+                                              level2,
+                                              level3: "",
+                                              bonus
+                                            }
+                                          );
+                                        }
+                                      }
+                                    }
+                                  );
                                 } else {
-                                  if (level3.length > 0) {
-                                    res.render(
-                                      "admin/pages/package/view-up-line",
-                                      {
-                                        level1,
-                                        level2,
-                                        level3,
-                                        bonus
-                                      }
-                                    );
-                                  } else {
-                                    res.render(
-                                      "admin/pages/package/view-up-line",
-                                      {
-                                        level1,
-                                        level2,
-                                        level3: "",
-                                        bonus
-                                      }
-                                    );
-                                  }
+                                  res.render("admin/pages/package/view-up-line", {
+                                    level1,
+                                    level2: "",
+                                    level3: "",
+                                    bonus
+                                  });
                                 }
                               }
-                            );
-                          } else {
-                            res.render("admin/pages/package/view-up-line", {
-                              level1,
-                              level2: "",
-                              level3: "",
-                              bonus
-                            });
-                          }
+                            }
+                          );
+                        } else {
+                          console.log("No any upline");
                         }
                       }
-                    );
-                  } else {
-                    console.log("No any upline");
-                  }
+                    }
+                  );
+                }else{
+                  return res.status(404).send("Package buyer users not found!")
                 }
               }
-            );
+            })   
             console.log(payment_info);
           } else {
             res.status("Requested Payment info is not found!");

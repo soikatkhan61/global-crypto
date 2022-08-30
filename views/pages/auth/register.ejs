@@ -1,0 +1,52 @@
+<%- include('../../partials/header/authHead.ejs') %>
+<div class="container h-100">
+    <div class="login_name_wrapper">
+        <div class="d-flex justify-content-center">Global Crypto</div>
+    </div>
+<div class="d-flex justify-content-center h-50" >
+    <div class="user_card">
+        <div class="d-flex justify-content-center">
+            <div class="login_logo_container"> <img src="/images/register.png" class="login_logo" alt="Logo"> </div>
+        </div>
+        <div class="d-flex justify-content-center form_container">
+            <form style="width: 320px" action="/auth/sign-up" method="post">
+                <div id="msgcont" class="d-flex justify-content-center" style="display:none!important">
+                    <div id="msg" class="alert alert-danger py-1 px-2" role="alert"></div>
+                </div>
+                <div class="input-group mb-4">
+                    <div class="input-group-append"> <span class="input-group-text"><i class="fas fa-user"></i></span> </div>
+                    <input id="username" type="text" name="username" class="form-control is-invalid input_user" placeholder="username" required>
+                    <div class="invalid-feedback">
+                        <p class="">User Name already exists</p>
+                    </div>
+                </div>
+                <div class="input-group mb-4">
+                    <div class="input-group-append"> <span class="input-group-text"><i class="far fa-envelope"></i></i></span> </div>
+                    <input id="email" type="text" name="email" class="form-control input_user" placeholder="email" required>
+                </div>
+                <div class="input-group mb-4">
+                    <div class="input-group-append"> <span class="input-group-text"><i class="fas fa-key"></i></i></span> </div>
+                    <input id="password" type="text" name="password" class="form-control input_user" placeholder="password" required>
+                </div>
+                <div class="input-group mb-4">
+                    <div class="input-group-append"> <span class="input-group-text"><i class="fas fa-key"></i></i></span> </div>
+                    <input id="pass" type="c_password" name="c_password" class="form-control input_pass" placeholder="confirm password" required>
+                </div>
+
+                <div class="d-flex justify-content-center mt-3 login_container">
+                    <button type="submit" class="btn login_btn">Register</button>
+                </div>
+            </form>
+        </div>
+        <div class="mt-4">
+            <div class="d-flex justify-content-center links"><a href="/auth/login">Already account? login</a> </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<%- include('../../partials/footer.ejs') %>
+
+</body>
+
+</html>

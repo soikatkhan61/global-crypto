@@ -1,0 +1,26 @@
+<%- include('../../partials/header/authHead.ejs') %>
+
+    <div class="container-fluid">
+        <div class="container py-5">
+                <h3 class="text-center text-light mb-5">Forgot your password? Dont worry! its pretty simple to recover your account!</h3>
+
+                <form action="/auth/forgot-password" method="post">
+                    <div class="input-group mb-4">
+                        <div class="input-group-append"> <span class="input-group-text"><i class="far fa-envelope"></i></span> </div>
+                        <input id="pass" type="email" name="email" class="form-control input_pass" placeholder="Enter your email!" required>
+                    </div>
+    
+                    <div class="d-flex justify-content-center mt-2 login_container">
+                        <button type="submit" class="btn btn-warning">Verify Email</button>
+                    </div>
+                </form>
+                
+        </div>
+    </div>
+
+
+    <%- include('../../partials/footer.ejs') %>
+
+        </body>
+
+        </html>

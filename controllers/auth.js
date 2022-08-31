@@ -40,7 +40,7 @@ exports.signUpPostController = async (req, res, next) => {
   if (!errors.isEmpty()) {
     console.log("error khaicho ");
     req.flash("fail", "Please check your form");
-    return res.render("pages/auth/auth", {
+    return res.render("pages/auth/register", {
       title: "Create a new account",
       error: errors.mapped(),
       value: {

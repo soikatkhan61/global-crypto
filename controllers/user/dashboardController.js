@@ -17,4 +17,8 @@ exports.dashboardGetController = async (req, res, next) => {
     }
    
   };
+
+  exports.renderUserSearch = async(req,res,next) =>{
+    res.render("user/pages/search-user",{title:'Search User'})
+  }
   

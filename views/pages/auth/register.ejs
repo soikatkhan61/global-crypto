@@ -15,25 +15,34 @@
                 </div>
                 <div class="input-group mb-4">
                     <div class="input-group-append"> <span class="input-group-text"><i class="fas fa-user"></i></span> </div>
-                    <input id="username" type="text" name="username" class="form-control is-invalid input_user" placeholder="username" required>
+                    <input id="username" type="text" value="<%= value.username ? value.username : '' %>" name="username" class="form-control <%= error.username ? 'is-invalid' : '' %>   input_user" placeholder="username" required>
                     <div class="invalid-feedback">
-                        <p class="">User Name already exists</p>
+                        <p class=""><%= error.username %></p>
                     </div>
                 </div>
                 <div class="input-group mb-4">
                     <div class="input-group-append"> <span class="input-group-text"><i class="far fa-envelope"></i></i></span> </div>
-                    <input id="email" type="text" name="email" class="form-control input_user" placeholder="email" required>
+                    <input id="email" type="text" value="<%= value.email ? value.username : '' %>"  name="email" class="form-control <%= error.email ? 'is-invalid' : '' %> input_user" placeholder="email" required>
+                    <div class="invalid-feedback">
+                        <p class=""><%= error.email %></p>
+                    </div>
                 </div>
                 <div class="input-group mb-4">
                     <div class="input-group-append"> <span class="input-group-text"><i class="fas fa-key"></i></i></span> </div>
-                    <input id="password" type="text" name="password" class="form-control input_user" placeholder="password" required>
+                    <input id="password" type="password" name="password" class="form-control  <%= error.password ? 'is-invalid' : '' %> input_user" placeholder="password" required>
+                    <div class="invalid-feedback">
+                        <p class=""><%= error.password %></p>
+                    </div>
                 </div>
                 <div class="input-group mb-4">
                     <div class="input-group-append"> <span class="input-group-text"><i class="fas fa-key"></i></i></span> </div>
-                    <input id="pass" type="c_password" name="c_password" class="form-control input_pass" placeholder="confirm password" required>
+                    <input id="pass" type="password" name="c_password" class="form-control <%= error.c_password ? 'is-invalid' : '' %> input_pass" placeholder="confirm password" required>
+                    <div class="invalid-feedback">
+                        <p class=""><%= error.c_password %></p>
+                    </div>
                 </div>
 
-                <div class="d-flex justify-content-center mt-3 login_container">
+                <div class="d-flex justify-content-center mt-4 login_container">
                     <button type="submit" class="btn login_btn">Register</button>
                 </div>
             </form>

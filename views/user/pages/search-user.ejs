@@ -1,0 +1,12 @@
+
+ <%- include('../user_partials/header.ejs') %>
+
+    <div class="container-fluid py-2" style="min-height: 100vh;background: #eee;">
+        <div class="container mt-4">
+            <form action="/search" method="get" style="border-radius: 0;" class="d-flex">
+                <input type="search" name="username" style="border-radius: 0;" required  class=" rounded-0 form-control rounded" placeholder="Search By Username" aria-label="Search" aria-describedby="search-addon" />
+                <button type="submit" class="btn btn-sm btn-outline-primary text-light bg-primary rounded-0 ">Search</button>
+              </form>
+        </div>
+    </div>
+    <%- include('../user_partials/footer.ejs') %>
